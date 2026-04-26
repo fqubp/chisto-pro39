@@ -1,0 +1,794 @@
+/* Подключаем шрифт Montserrat */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+
+/* Базовые переменные цветов */
+:root {
+    --dark-blue: #0B3B5C;
+    --accent-blue: #4A90E2;
+    --light-bg: #F5F7FA;
+    --text-dark: #4A5568;
+    --white: #FFFFFF;
+    --gray-light: #E2E8F0;
+}
+
+/* Общие сбросы */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    color: var(--text-dark);
+    line-height: 1.6;
+    background-color: var(--white);
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+ul {
+    list-style: none;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+/* Кнопки */
+.btn {
+    display: inline-block;
+    padding: 12px 30px;
+    background-color: var(--dark-blue);
+    color: var(--white);
+    border: none;
+    border-radius: 4px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: var(--accent-blue);
+}
+
+/* Шапка */
+.header {
+    background-color: var(--white);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.header__container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 80px;
+}
+
+.header__logo a {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--dark-blue);
+}
+
+.header__nav {
+    flex: 1;
+    margin-left: 40px;
+}
+
+.header__menu {
+    display: flex;
+    gap: 30px;
+}
+
+.header__menu > li {
+    position: relative;
+}
+
+.header__menu a {
+    font-weight: 500;
+    padding: 10px 0;
+}
+
+.header__menu > li > a:hover {
+    color: var(--accent-blue);
+}
+
+/* Выпадающее меню */
+.submenu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: var(--white);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    min-width: 200px;
+    padding: 10px 0;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 10;
+}
+
+.menu-item-has-children:hover .submenu {
+    opacity: 1;
+    visibility: visible;
+}
+
+.submenu li a {
+    display: block;
+    padding: 8px 20px;
+    color: var(--text-dark);
+}
+
+.submenu li a:hover {
+    background-color: var(--light-bg);
+    color: var(--accent-blue);
+}
+
+/* Контакты в шапке */
+.header__contacts {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.header__phone {
+    font-weight: 600;
+    color: var(--dark-blue);
+}
+
+.header__social {
+    display: flex;
+    gap: 10px;
+}
+
+.header__social a {
+    font-size: 20px;
+    color: var(--dark-blue);
+    transition: color 0.3s ease;
+}
+
+.header__social a:hover {
+    color: var(--accent-blue);
+}
+
+.header__btn {
+    padding: 8px 20px;
+}
+
+.header__burger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.header__burger span {
+    width: 25px;
+    height: 3px;
+    background-color: var(--dark-blue);
+    transition: all 0.3s ease;
+}
+
+/* Подвал */
+.footer {
+    background-color: var(--dark-blue);
+    color: var(--white);
+    padding: 50px 0 20px;
+    margin-top: 60px;
+}
+
+.footer__container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+.footer__logo {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+.footer__tagline {
+    margin-bottom: 20px;
+    opacity: 0.8;
+}
+
+.footer__social {
+    display: flex;
+    gap: 15px;
+}
+
+.footer__social a {
+    font-size: 24px;
+    color: var(--white);
+    transition: opacity 0.3s ease;
+}
+
+.footer__social a:hover {
+    opacity: 0.7;
+}
+
+.footer__col h4 {
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.footer__col ul li {
+    margin-bottom: 10px;
+}
+
+.footer__col ul li a {
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+}
+
+.footer__col ul li a:hover {
+    opacity: 1;
+    color: var(--accent-blue);
+}
+
+.footer__bottom {
+    border-top: 1px solid rgba(255,255,255,0.2);
+    padding-top: 20px;
+    text-align: center;
+    font-size: 14px;
+    opacity: 0.7;
+}
+
+.footer__bottom .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Главная страница: hero */
+.hero {
+    background-color: var(--light-bg);
+    padding: 80px 0;
+    text-align: center;
+}
+
+.hero h1 {
+    font-size: 48px;
+    color: var(--dark-blue);
+    margin-bottom: 20px;
+}
+
+.hero p {
+    font-size: 20px;
+    margin-bottom: 30px;
+}
+
+/* Превью услуг */
+.services-preview {
+    padding: 60px 0;
+}
+
+.services-preview h2 {
+    text-align: center;
+    margin-bottom: 40px;
+    color: var(--dark-blue);
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
+.service-card {
+    background-color: var(--white);
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    text-align: center;
+}
+
+.service-card__image {
+    height: 200px;
+    background-color: var(--gray-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    border-radius: 4px;
+    color: var(--text-dark);
+}
+
+.service-card h3 {
+    margin-bottom: 10px;
+    color: var(--dark-blue);
+}
+
+.service-card p {
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: var(--accent-blue);
+}
+
+/* О нас (преимущества) */
+.about {
+    background-color: var(--light-bg);
+    padding: 60px 0;
+}
+
+.about h2 {
+    text-align: center;
+    margin-bottom: 40px;
+    color: var(--dark-blue);
+}
+
+.advantages-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
+.advantage {
+    text-align: center;
+}
+
+.advantage__icon {
+    width: 80px;
+    height: 80px;
+    background-color: var(--gray-light);
+    border-radius: 50%;
+    margin: 0 auto 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-dark);
+}
+
+.advantage h3 {
+    margin-bottom: 10px;
+    color: var(--dark-blue);
+}
+
+/* Форма обратной связи */
+.callback {
+    padding: 60px 0;
+    background-color: var(--white);
+}
+
+.callback h2 {
+    text-align: center;
+    margin-bottom: 40px;
+    color: var(--dark-blue);
+}
+
+.callback-form {
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: var(--light-bg);
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+    color: var(--text-dark);
+}
+
+.form-group .required {
+    color: red;
+}
+
+.form-group input[type="text"],
+.form-group input[type="tel"],
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 10px 15px;
+    border: 1px solid var(--gray-light);
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: 16px;
+}
+
+.form-group input[type="file"] {
+    padding: 5px 0;
+}
+
+.form-group.checkbox {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.form-group.checkbox input {
+    width: auto;
+}
+
+.form-group.checkbox label {
+    margin-bottom: 0;
+    font-weight: normal;
+}
+
+.callback-form .btn {
+    width: 100%;
+    padding: 15px;
+    font-size: 18px;
+}
+
+/* Страница благодарности */
+.thank-you {
+    padding: 100px 0;
+    text-align: center;
+}
+
+.thank-you h1 {
+    color: var(--dark-blue);
+    margin-bottom: 20px;
+}
+
+.thank-you p {
+    font-size: 18px;
+    margin-bottom: 30px;
+}
+
+/* Адаптивность */
+@media (max-width: 992px) {
+    .header__nav {
+        display: none;
+    }
+
+    .header__burger {
+        display: flex;
+    }
+
+    .footer__container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .services-grid,
+    .advantages-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .header__contacts {
+        gap: 10px;
+    }
+
+    .header__btn {
+        padding: 5px 10px;
+        font-size: 14px;
+    }
+
+    .footer__bottom .container {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .hero h1 {
+        font-size: 36px;
+    }
+
+    .hero p {
+        font-size: 18px;
+    }
+
+    .services-grid,
+    .advantages-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .footer__container {
+        grid-template-columns: 1fr;
+    }
+
+    .header__contacts .header__phone,
+    .header__social {
+        display: none;
+    }
+
+    .header__btn {
+        padding: 5px 10px;
+        font-size: 12px;
+    }
+}
+/* Страницы услуг */
+.service-page {
+    padding: 60px 0;
+}
+
+.service-page h1 {
+    color: var(--dark-blue);
+    margin-bottom: 40px;
+}
+
+.service-page__content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+}
+
+.service-page__image {
+    background-color: var(--gray-light);
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+}
+
+.service-page__description h3 {
+    margin: 20px 0 10px;
+    color: var(--dark-blue);
+}
+
+.service-page__description ul {
+    list-style: disc;
+    padding-left: 20px;
+    margin-bottom: 20px;
+}
+
+.service-page__price {
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--accent-blue);
+    margin-bottom: 20px;
+}
+
+/* Страница цен */
+.prices {
+    padding: 60px 0;
+}
+
+.prices h1 {
+    color: var(--dark-blue);
+    margin-bottom: 20px;
+}
+
+.prices__note {
+    margin-bottom: 40px;
+    font-style: italic;
+}
+
+.prices__section {
+    margin-bottom: 50px;
+}
+
+.prices__section h2 {
+    color: var(--dark-blue);
+    margin-bottom: 20px;
+}
+
+.prices__table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.prices__table th,
+.prices__table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid var(--gray-light);
+}
+
+.prices__table th {
+    background-color: var(--light-bg);
+    font-weight: 600;
+}
+
+/* Страница контактов */
+.contacts {
+    padding: 60px 0;
+}
+
+.contacts h1 {
+    color: var(--dark-blue);
+    margin-bottom: 40px;
+}
+
+.contacts__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+}
+
+.contacts__info h2,
+.contacts__form h2 {
+    color: var(--dark-blue);
+    margin-bottom: 20px;
+}
+
+.contacts__info p {
+    margin-bottom: 15px;
+    font-size: 18px;
+}
+
+.contacts__info i {
+    width: 30px;
+    color: var(--accent-blue);
+}
+
+/* Политика конфиденциальности */
+.privacy {
+    padding: 60px 0;
+}
+
+.privacy h1 {
+    color: var(--dark-blue);
+    margin-bottom: 30px;
+}
+
+.privacy h2 {
+    color: var(--dark-blue);
+    margin-top: 30px;
+    margin-bottom: 15px;
+    font-size: 22px;
+}
+
+.privacy p {
+    margin-bottom: 15px;
+    line-height: 1.8;
+}
+
+/* Адаптив для новых страниц */
+@media (max-width: 768px) {
+    .service-page__content,
+    .contacts__grid {
+        grid-template-columns: 1fr;
+    }
+}
+/* Страница калькулятора */
+.calculator-page {
+    padding: 60px 0;
+}
+
+.calculator-page h1 {
+    color: var(--dark-blue);
+    margin-bottom: 20px;
+}
+
+.calculator-page__intro {
+    margin-bottom: 40px;
+    font-size: 18px;
+}
+
+.calculator {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+}
+
+.calculator__form {
+    background-color: var(--light-bg);
+    padding: 30px;
+    border-radius: 8px;
+}
+
+.calculator__form .form-group {
+    margin-bottom: 20px;
+}
+
+.calculator__form .checkbox-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: normal;
+}
+
+.calculator__result {
+    margin-top: 30px;
+    font-size: 24px;
+    color: var(--dark-blue);
+    text-align: center;
+}
+
+.calculator__order {
+    background-color: var(--white);
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+}
+
+.calculator__order h2 {
+    margin-bottom: 20px;
+    color: var(--dark-blue);
+}
+
+@media (max-width: 768px) {
+    .calculator {
+        grid-template-columns: 1fr;
+    }
+}
+.catalog__section {
+    margin-bottom: 60px;
+}
+
+.catalog__section h2 {
+    margin-bottom: 30px;
+    color: var(--dark-blue);
+    font-size: 28px;
+}
+/* Стили для активного мобильного меню */
+@media (max-width: 992px) {
+    .header__nav {
+        display: block;
+        position: fixed;
+        top: 80px;
+        left: 0;
+        width: 100%;
+        height: calc(100vh - 80px);
+        background-color: var(--white);
+        padding: 30px;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+        overflow-y: auto;
+        z-index: 999;
+        box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+    }
+
+    .header__nav--active {
+        transform: translateX(0);
+    }
+
+    .header__menu {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .header__menu > li {
+        width: 100%;
+    }
+
+    .submenu {
+        position: static;
+        opacity: 1;
+        visibility: visible;
+        box-shadow: none;
+        padding: 10px 0 0 20px;
+        display: none;
+    }
+
+    .menu-item-has-children:hover .submenu {
+        display: block;
+    }
+
+    .header__burger {
+        display: flex;
+    }
+
+    .header__burger.active span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    .header__burger.active span:nth-child(2) {
+        opacity: 0;
+    }
+
+    .header__burger.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(7px, -6px);
+    }
+
+    /* Скрываем контакты в шапке на мобильных, если нужно */
+    .header__contacts .header__phone,
+    .header__social {
+        display: none;
+    }
+}
