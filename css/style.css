@@ -40,6 +40,21 @@ ul {
     padding: 0 15px;
 }
 
+.notification {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 16px 20px;
+    border-radius: 8px;
+    font-weight: 500;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.notification--error {
+    background-color: #ffeef0;
+    color: #b42318;
+    border: 1px solid #fecdd3;
+}
+
 /* Кнопки */
 .btn {
     display: inline-block;

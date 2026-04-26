@@ -27,14 +27,17 @@ if (isset($_GET['action']) && $_GET['action'] === 'change_status' && isset($_GET
 // Обработка удаления
 if (isset($_GET['action']) && $_GET['action'] === 'delete' && isset($_GET['id'])) {
     $id = intval($_GET['id']);
-    // Сначала получим путь к файлу, чтобы удалить его
+    // Сначала получим путь к файлам, чтобы удалить их
     $stmt = $conn->prepare("SELECT file_path FROM requests WHERE id = ?");
     $stmt->bind_param("i", $id);
     $stmt->execute();
     $result = $stmt->get_result();
     if ($row = $result->fetch_assoc()) {
-        if ($row['file_path'] && file_exists('../' . $row['file_path'])) {
-            unlink('../' . $row['file_path']);
+        $file_paths = get_file_paths($row['file_path']);
+        foreach ($file_paths as $file_path) {
+            if ($file_path && file_exists('../' . $file_path)) {
+                unlink('../' . $file_path);
+            }
         }
     }
     $stmt->close();
@@ -58,7 +61,7 @@ $conn->close();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Админ-панель - Заявки</title>
-    <link rel="stylesheet" href="/chisto-pro39/css/style.css">
+    <link rel="stylesheet" href="../css/style.css">
     <style>
         .admin-container {
             padding: 40px 0;
@@ -159,8 +162,11 @@ $conn->close();
                             <td><?php echo htmlspecialchars($req['estimated_price'] ?: '-'); ?></td>
                             <td><?php echo nl2br(htmlspecialchars($req['message'] ?: '-')); ?></td>
                             <td>
-                                <?php if ($req['file_path']): ?>
-                                    <a href="/chisto-pro39/<?php echo $req['file_path']; ?>" target="_blank" class="file-link">Посмотреть</a>
+                                <?php $file_paths = get_file_paths($req['file_path']); ?>
+                                <?php if (!empty($file_paths)): ?>
+                                    <?php foreach ($file_paths as $index => $file_path): ?>
+                                        <div><a href="../<?= htmlspecialchars($file_path) ?>" target="_blank" class="file-link">Файл <?= $index + 1 ?></a></div>
+                                    <?php endforeach; ?>
                                 <?php else: ?>
                                     -
                                 <?php endif; ?>

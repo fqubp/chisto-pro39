@@ -13,19 +13,19 @@
             <div class="footer__col">
                 <h4>Навигация</h4>
                 <ul>
-                    <li><a href="/chisto-pro39/index.php">Главная</a></li>
-                    <li><a href="/chisto-pro39/services.php">Услуги</a></li>
-                    <li><a href="/chisto-pro39/prices.php">Цены</a></li>
-                    <li><a href="/chisto-pro39/contacts.php">Контакты</a></li>
+                    <li><a href="<?= route('index.php') ?>">Главная</a></li>
+                    <li><a href="<?= route('services.php') ?>">Услуги</a></li>
+                    <li><a href="<?= route('prices.php') ?>">Цены</a></li>
+                    <li><a href="<?= route('contacts.php') ?>">Контакты</a></li>
                 </ul>
             </div>
             <div class="footer__col">
                 <h4>Услуги</h4>
                 <ul>
-                    <li><a href="/chisto-pro39/private/apartment.php">Уборка квартир</a></li>
-                    <li><a href="/chisto-pro39/private/cleaning.php">Химчистка мебели</a></li>
-                    <li><a href="/chisto-pro39/private/windows.php">Мойка окон</a></li>
-                    <li><a href="/chisto-pro39/business/office.php">Уборка офисов</a></li>
+                    <li><a href="<?= route('private/apartment.php') ?>">Уборка квартир</a></li>
+                    <li><a href="<?= route('private/cleaning.php') ?>">Химчистка мебели</a></li>
+                    <li><a href="<?= route('private/windows.php') ?>">Мойка окон</a></li>
+                    <li><a href="<?= route('business/office.php') ?>">Уборка офисов</a></li>
                 </ul>
             </div>
             <div class="footer__col">
@@ -38,12 +38,12 @@
         <div class="footer__bottom">
             <div class="container">
                 <p>&copy; 2025 Чисто-про39. Все права защищены.</p>
-                <p><a href="/chisto-pro39/privacy.php">Политика конфиденциальности</a></p>
+                <p><a href="<?= route('privacy.php') ?>">Политика конфиденциальности</a></p>
             </div>
         </div>
     </footer>
 
     <!-- Подключаем скрипты -->
-    <script src="/chisto-pro39/js/script.js"></script>
+    <script src="<?= asset('js/script.js') ?>"></script>
 </body>
 </html>

@@ -1,5 +1,18 @@
 <?php include 'includes/header.php'; ?>
 
+<?php
+$error_message = '';
+if (!empty($_GET['error'])) {
+    $error_message = clean_input(urldecode($_GET['error']));
+}
+?>
+
+<?php if ($error_message): ?>
+    <div class="notification notification--error">
+        <?php echo $error_message; ?>
+    </div>
+<?php endif; ?>
+
 <section class="hero">
     <div class="container hero__container">
         <h1>Профессиональный клининг <br>в Калининграде</h1>
@@ -16,19 +29,19 @@
                 <div class="service-card__image">[Фото: уборка квартиры]</div>
                 <h3>Уборка квартир</h3>
                 <p>от 90 руб/м²</p>
-                <a href="/chisto-pro39/private/apartment.php" class="btn">Подробнее</a>
+                <a href="private/apartment.php" class="btn">Подробнее</a>
             </div>
             <div class="service-card">
                 <div class="service-card__image">[Фото: химчистка]</div>
                 <h3>Химчистка мебели</h3>
                 <p>от 4500 руб</p>
-                <a href="/chisto-pro39/private/cleaning.php" class="btn">Подробнее</a>
+                <a href="private/cleaning.php" class="btn">Подробнее</a>
             </div>
             <div class="service-card">
                 <div class="service-card__image">[Фото: мойка окон]</div>
                 <h3>Мойка окон</h3>
                 <p>от 500 руб</p>
-                <a href="/chisto-pro39/private/windows.php" class="btn">Подробнее</a>
+                <a href="private/windows.php" class="btn">Подробнее</a>
             </div>
         </div>
     </div>
@@ -84,15 +97,15 @@
                 <textarea id="message" name="message" rows="4" placeholder="Дополнительная информация"></textarea>
             </div>
             <div class="form-group">
-                <label for="file">Прикрепить фото/видео (до 10 МБ)</label>
-                <input type="file" id="file" name="file" accept=".jpg,.jpeg,.png,.mp4,.mov">
+                <label for="file">Прикрепить фото/видео (до 5 файлов, общий размер до 30 МБ)</label>
+                <input type="file" id="file" name="file[]" accept=".jpg,.jpeg,.png,.mp4,.mov" multiple>
             </div>
             <!-- Скрытое поле для примерной стоимости (заполнится позже калькулятором) -->
             <input type="hidden" name="estimated_price" id="estimated_price" value="">
             
             <div class="form-group checkbox">
                 <input type="checkbox" id="agree" name="agree" required>
-                <label for="agree">Я согласен на обработку персональных данных в соответствии с <a href="/chisto-pro39/privacy.php" target="_blank">Политикой конфиденциальности</a></label>
+                <label for="agree">Я согласен на обработку персональных данных в соответствии с <a href="privacy.php" target="_blank">Политикой конфиденциальности</a></label>
             </div>
             
             <button type="submit" class="btn">Отправить заявку</button>

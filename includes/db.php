@@ -1,13 +1,10 @@
 <?php
-// Параметры подключения к базе данных (для MAMP по умолчанию)
-$host = 'localhost';
-$dbname = 'chisto_pro39_db'; // Имя базы данных, созданной ранее
-$user = 'root';
-$password = 'root'; // Стандартный пароль в MAMP
-$port = 8889; // Порт MySQL в MAMP (обычно 8889)
+require_once __DIR__ . '/config.php';
+
+$dbConfig = getDbConfig();
 
 // Создаём соединение
-$conn = new mysqli($host, $user, $password, $dbname, $port);
+$conn = new mysqli($dbConfig['host'], $dbConfig['user'], $dbConfig['pass'], $dbConfig['name'], $dbConfig['port']);
 
 // Проверяем соединение
 if ($conn->connect_error) {
