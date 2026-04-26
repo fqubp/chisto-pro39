@@ -11,34 +11,44 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $source = 'site';
 
     if (empty($phone)) {
-        die('Ошибка: телефон обязателен.');
+        header('Location: index.php?error=' . urlencode('Телефон обязателен.'));
+        exit;
     }
 
     $file_path = null;
     if (isset($_FILES['file'])) {
-        $upload_result = upload_file('file', 'uploads/');
+        $upload_result = upload_files('file');
         if ($upload_result) {
             if (isset($upload_result['error'])) {
-                die('Ошибка загрузки файла: ' . $upload_result['error']);
+                header('Location: index.php?error=' . urlencode('Ошибка загрузки файла: ' . $upload_result['error']));
+                exit;
             } elseif (isset($upload_result['success'])) {
-                $file_path = $upload_result['success'];
+                $file_path = json_encode($upload_result['success']);
             }
         }
     }
 
     $stmt = $conn->prepare("INSERT INTO requests (name, phone, service_type, message, file_path, estimated_price, source) VALUES (?, ?, ?, ?, ?, ?, ?)");
+    if (!$stmt) {
+        error_log('DB prepare error: ' . $conn->error);
+        header('Location: index.php?error=' . urlencode('Ошибка сервера. Попробуйте позже.'));
+        exit;
+    }
     $stmt->bind_param("sssssss", $name, $phone, $service_type, $message, $file_path, $estimated_price, $source);
 
     if ($stmt->execute()) {
         $to = 'pomianem@bk.ru';
         $subject = 'Новая заявка с сайта Чисто-про39';
-        $body = "Имя: $name\nТелефон: $phone\nТип услуги: $service_type\nПримерная стоимость: $estimated_price\nСообщение: $message\nФайл: $file_path\nИсточник: $source";
+        $file_paths = get_file_paths($file_path);
+        $body = "Имя: $name\nТелефон: $phone\nТип услуги: $service_type\nПримерная стоимость: $estimated_price\nСообщение: $message\nФайлы: " . implode(', ', $file_paths) . "\nИсточник: $source";
         send_notification($to, $subject, $body);
 
         header('Location: thank_you.php');
         exit;
     } else {
-        echo "Ошибка при сохранении заявки: " . $conn->error;
+        error_log('DB execute error: ' . $stmt->error);
+        header('Location: index.php?error=' . urlencode('Ошибка сервера. Попробуйте позже.'));
+        exit;
     }
 
     $stmt->close();

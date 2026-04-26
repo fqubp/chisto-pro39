@@ -18,7 +18,7 @@
                     <li>Влажная уборка полов</li>
                 </ul>
                 <p class="service-page__price">Стоимость: от 110 руб/м²</p>
-                <a href="/chisto-pro39/index.php#callback" class="btn">Заказать</a>
+                <a href="<?= route('index.php#callback') ?>" class="btn">Заказать</a>
             </div>
         </div>
     </div>

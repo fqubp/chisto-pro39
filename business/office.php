@@ -18,7 +18,7 @@
                     <li>Мойка окон и витрин (по запросу)</li>
                 </ul>
                 <p class="service-page__price">Стоимость: от 40 руб/м² (ежедневная) / от 95 руб/м² (после ремонта)</p>
-                <a href="/chisto-pro39/index.php#callback" class="btn">Заказать</a>
+                <a href="<?= route('index.php#callback') ?>" class="btn">Заказать</a>
             </div>
         </div>
     </div>

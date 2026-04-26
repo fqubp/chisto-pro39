@@ -1,0 +1,15 @@
+{
+    "name": "fqubp/chisto-pro39",
+    "description": "Клининг сайт",
+    "type": "project",
+    "authors": [
+        {
+            "name": "fqubp",
+            "email": "95485591+fqubp@users.noreply.github.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "phpmailer/phpmailer": "^7.0"
+    }
+}

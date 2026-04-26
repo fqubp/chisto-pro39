@@ -37,30 +37,38 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $status = clean_input($_POST['status'] ?? 'new');
     $source = clean_input($_POST['source'] ?? 'site');
 
-    // Если загружен новый файл
+    // Если загружены новые файлы
     $file_path = $request['file_path']; // по умолчанию старый
-    if (isset($_FILES['new_file']) && $_FILES['new_file']['error'] === UPLOAD_ERR_OK) {
-        // Удаляем старый файл, если есть
-        if ($file_path && file_exists('../' . $file_path)) {
-            unlink('../' . $file_path);
-        }
-        // Загружаем новый
-        $upload_result = upload_file('new_file', '../uploads/');
-        if ($upload_result && isset($upload_result['success'])) {
-            $file_path = $upload_result['success'];
+    if (isset($_FILES['new_file'])) {
+        $upload_result = upload_files('new_file', '../uploads/');
+        if ($upload_result) {
+            if (isset($upload_result['error'])) {
+                $error = 'Ошибка загрузки файла: ' . $upload_result['error'];
+            } elseif (isset($upload_result['success'])) {
+                // Удаляем предыдущие файлы, если есть
+                $old_files = get_file_paths($file_path);
+                foreach ($old_files as $old_file) {
+                    if ($old_file && file_exists('../' . $old_file)) {
+                        unlink('../' . $old_file);
+                    }
+                }
+                $file_path = json_encode($upload_result['success']);
+            }
         }
     }
 
-    // Обновляем запись
-    $stmt = $conn->prepare("UPDATE requests SET name=?, phone=?, service_type=?, message=?, estimated_price=?, status=?, source=?, file_path=? WHERE id=?");
-    $stmt->bind_param("ssssssssi", $name, $phone, $service_type, $message, $estimated_price, $status, $source, $file_path, $id);
-    if ($stmt->execute()) {
-        header('Location: index.php');
-        exit;
-    } else {
-        $error = "Ошибка обновления: " . $conn->error;
+    if (!isset($error)) {
+        // Обновляем запись
+        $stmt = $conn->prepare("UPDATE requests SET name=?, phone=?, service_type=?, message=?, estimated_price=?, status=?, source=?, file_path=? WHERE id=?");
+        $stmt->bind_param("ssssssssi", $name, $phone, $service_type, $message, $estimated_price, $status, $source, $file_path, $id);
+        if ($stmt->execute()) {
+            header('Location: index.php');
+            exit;
+        } else {
+            $error = "Ошибка обновления: " . $conn->error;
+        }
+        $stmt->close();
     }
-    $stmt->close();
 }
 
 $conn->close();
@@ -71,7 +79,7 @@ $conn->close();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Редактирование заявки</title>
-    <link rel="stylesheet" href="/chisto-pro39/css/style.css">
+    <link rel="stylesheet" href="../css/style.css">
     <style>
         .edit-form {
             max-width: 600px;
@@ -134,22 +142,25 @@ $conn->close();
                     <input type="text" name="source" value="<?php echo htmlspecialchars($request['source']); ?>">
                 </div>
                 <div class="form-group">
-                    <label>Текущий файл:</label>
-                    <?php if ($request['file_path']): ?>
-                        <div class="current-file">
-                            <a href="/chisto-pro39/<?php echo $request['file_path']; ?>" target="_blank">Посмотреть</a>
-                        </div>
+                    <label>Текущие файлы:</label>
+                    <?php $existing_files = get_file_paths($request['file_path']); ?>
+                    <?php if (!empty($existing_files)): ?>
+                        <?php foreach ($existing_files as $index => $file): ?>
+                            <div class="current-file">
+                                <a href="../<?= htmlspecialchars($file) ?>" target="_blank">Файл <?= $index + 1 ?></a>
+                            </div>
+                        <?php endforeach; ?>
                     <?php else: ?>
-                        <p>Нет файла</p>
+                        <p>Нет файлов</p>
                     <?php endif; ?>
                 </div>
                 <div class="form-group">
-                    <label>Заменить файл (оставьте пустым, если не нужно)</label>
-                    <input type="file" name="new_file" accept=".jpg,.jpeg,.png,.mp4,.mov">
+                    <label>Заменить файлы (оставьте пустым, если не нужно)</label>
+                    <input type="file" name="new_file[]" accept=".jpg,.jpeg,.png,.mp4,.mov" multiple>
                 </div>
                 <div class="form-group">
                     <button type="submit" class="btn">Сохранить</button>
-                    <a href="index.php" class="btn" style="background: #6c757d;">Отмена</a>
+                    <a href="<?= route('admin/index.php') ?>" class="btn" style="background: #6c757d;">Отмена</a>
                 </div>
             </form>
         </div>

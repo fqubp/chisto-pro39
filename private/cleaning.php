@@ -18,7 +18,7 @@
                     <li>Сушка и восстановление внешнего вида</li>
                 </ul>
                 <p class="service-page__price">Стоимость: от 4500 руб (диван) / от 140 руб/м² (ковёр)</p>
-                <a href="/chisto-pro39/index.php#callback" class="btn">Заказать</a>
+                <a href="<?= route('index.php#callback') ?>" class="btn">Заказать</a>
             </div>
         </div>
     </div>
