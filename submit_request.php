@@ -1,14 +1,32 @@
 <?php
+session_start();
 require_once 'includes/db.php';
 require_once 'includes/functions.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $name = isset($_POST['name']) ? clean_input($_POST['name']) : '';
-    $phone = isset($_POST['phone']) ? clean_input($_POST['phone']) : '';
-    $service_type = isset($_POST['service_type']) ? clean_input($_POST['service_type']) : '';
-    $message = isset($_POST['message']) ? clean_input($_POST['message']) : '';
-    $estimated_price = isset($_POST['estimated_price']) ? clean_input($_POST['estimated_price']) : '';
-    $source = 'site';
+
+    // CSRF-проверка
+    verify_csrf();
+
+    // Honeypot — боты заполняют скрытое поле, люди нет
+    if (!empty($_POST['website'])) {
+        header('Location: thank_you.php');
+        exit;
+    }
+
+    // Rate limiting
+    if (!check_rate_limit($conn)) {
+        header('Location: index.php?error=' . urlencode('Слишком много заявок. Позвоните нам напрямую: +7 (922) 250-12-66'));
+        exit;
+    }
+
+    $name    = isset($_POST['name'])            ? clean_input($_POST['name'])            : '';
+    $phone   = isset($_POST['phone'])           ? clean_input($_POST['phone'])           : '';
+    $service = isset($_POST['service_type'])    ? clean_input($_POST['service_type'])    : '';
+    $message = isset($_POST['message'])         ? clean_input($_POST['message'])         : '';
+    $price   = isset($_POST['estimated_price']) ? clean_input($_POST['estimated_price']) : '';
+    $source  = 'site';
+    $ip_hash = hash('sha256', $_SERVER['REMOTE_ADDR'] ?? '0.0.0.0');
 
     if (empty($phone)) {
         header('Location: index.php?error=' . urlencode('Телефон обязателен.'));
@@ -28,28 +46,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    $stmt = $conn->prepare("INSERT INTO requests (name, phone, service_type, message, file_path, estimated_price, source) VALUES (?, ?, ?, ?, ?, ?, ?)");
+    $stmt = $conn->prepare("INSERT INTO requests (name, phone, service_type, message, file_path, estimated_price, source, source_ip) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
     if (!$stmt) {
         error_log('DB prepare error: ' . $conn->error);
         header('Location: index.php?error=' . urlencode('Ошибка сервера. Попробуйте позже.'));
         exit;
     }
-    $stmt->bind_param("sssssss", $name, $phone, $service_type, $message, $file_path, $estimated_price, $source);
+    $stmt->bind_param("ssssssss", $name, $phone, $service, $message, $file_path, $price, $source, $ip_hash);
 
     if ($stmt->execute()) {
-        $to = getenv('ADMIN_EMAIL') ?: 'chisto-pro39@bk.ru';
+        $to      = getenv('ADMIN_EMAIL') ?: 'chisto-pro39@bk.ru';
         $subject = 'Новая заявка с сайта Чисто-про39';
-        $file_paths = get_file_paths($file_path);
-        $body = "Имя: $name\nТелефон: $phone\nТип услуги: $service_type\nПримерная стоимость: $estimated_price\nСообщение: $message\nФайлы: " . implode(', ', $file_paths) . "\nИсточник: $source";
+        $paths   = get_file_paths($file_path);
+        $body    = "Имя: $name\nТелефон: $phone\nТип услуги: $service\nПримерная стоимость: $price\nСообщение: $message\nФайлы: " . implode(', ', $paths);
         send_notification($to, $subject, $body);
 
-        $tg_text = "🧹 <b>Новая заявка!</b>\n"
+        $tg = "🧹 <b>Новая заявка!</b>\n"
             . "👤 Имя: " . ($name ?: '—') . "\n"
             . "📞 Телефон: $phone\n"
-            . ($service_type ? "🔧 Услуга: $service_type\n" : "")
-            . ($estimated_price ? "💰 Стоимость: ~$estimated_price руб\n" : "")
-            . ($message ? "💬 Комментарий: $message\n" : "");
-        send_telegram_notification($tg_text);
+            . ($service ? "🔧 Услуга: $service\n" : "")
+            . ($price    ? "💰 Стоимость: ~$price руб\n" : "")
+            . ($message  ? "💬 Комментарий: $message\n" : "");
+        send_telegram_notification($tg);
 
         header('Location: thank_you.php');
         exit;

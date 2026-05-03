@@ -7,6 +7,7 @@ CREATE TABLE IF NOT EXISTS requests (
     file_path TEXT,
     estimated_price VARCHAR(50),
     source VARCHAR(50) DEFAULT 'site',
+    source_ip VARCHAR(64) DEFAULT NULL,
     status ENUM('new', 'in_progress', 'completed') DEFAULT 'new',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

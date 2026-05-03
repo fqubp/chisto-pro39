@@ -74,6 +74,19 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
+    // ===== COOKIE BANNER =====
+    const cookieBanner = document.getElementById('cookieBanner');
+    const cookieAccept = document.getElementById('cookieAccept');
+    if (cookieBanner && !localStorage.getItem('cookie_ok')) {
+        setTimeout(() => cookieBanner.classList.add('show'), 800);
+    }
+    if (cookieAccept) {
+        cookieAccept.addEventListener('click', () => {
+            localStorage.setItem('cookie_ok', '1');
+            cookieBanner.classList.remove('show');
+        });
+    }
+
     // ===== FAQ ACCORDION =====
     document.querySelectorAll('.faq__question').forEach(btn => {
         btn.addEventListener('click', () => {

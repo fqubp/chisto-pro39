@@ -6,6 +6,42 @@ define('MAX_UPLOAD_FILES', 5);
 define('MAX_UPLOAD_FILE_SIZE', 10 * 1024 * 1024); // 10 МБ на файл
 define('MAX_UPLOAD_TOTAL_SIZE', 30 * 1024 * 1024); // 30 МБ общий размер
 
+// ===== CSRF-ЗАЩИТА =====
+function csrf_token() {
+    if (session_status() === PHP_SESSION_NONE) session_start();
+    if (empty($_SESSION['csrf_token'])) {
+        $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+    }
+    return $_SESSION['csrf_token'];
+}
+
+function csrf_field() {
+    return '<input type="hidden" name="csrf_token" value="' . csrf_token() . '">';
+}
+
+function verify_csrf() {
+    if (session_status() === PHP_SESSION_NONE) session_start();
+    $token = $_POST['csrf_token'] ?? '';
+    if (!$token || !isset($_SESSION['csrf_token']) || !hash_equals($_SESSION['csrf_token'], $token)) {
+        http_response_code(403);
+        die('Ошибка безопасности. Обновите страницу и попробуйте снова.');
+    }
+}
+
+// ===== RATE LIMITING (не более 5 заявок с одного IP в час) =====
+function check_rate_limit($conn) {
+    $ip = $_SERVER['REMOTE_ADDR'] ?? '0.0.0.0';
+    $ip_hash = hash('sha256', $ip);
+    $result = $conn->query("SELECT COUNT(*) as cnt FROM requests WHERE source_ip = '$ip_hash' AND created_at > DATE_SUB(NOW(), INTERVAL 1 HOUR)");
+    if ($result) {
+        $row = $result->fetch_assoc();
+        if ($row['cnt'] >= 5) {
+            return false;
+        }
+    }
+    return true;
+}
+
 // Очистка данных от тегов и лишних пробелов
 function clean_input($data) {
     $data = trim($data);

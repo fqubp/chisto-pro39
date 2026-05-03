@@ -16,6 +16,8 @@
             <div class="contacts__form">
                 <h2>Напишите нам</h2>
                 <form action="submit_request.php" method="post" enctype="multipart/form-data">
+                    <?= csrf_field() ?>
+                    <input type="text" name="website" style="display:none" tabindex="-1" autocomplete="off">
                     <div class="form-group">
                         <input type="text" name="name" placeholder="Ваше имя">
                     </div>

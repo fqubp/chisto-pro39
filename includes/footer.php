@@ -61,6 +61,12 @@
         </a>
     </div>
 
+    <!-- Cookie-баннер -->
+    <div class="cookie-banner" id="cookieBanner">
+        <p>Мы используем cookie для корректной работы форм. Продолжая пользоваться сайтом, вы соглашаетесь с нашей <a href="<?= route('privacy.php') ?>">Политикой конфиденциальности</a>.</p>
+        <button class="btn btn--sm" id="cookieAccept">Понятно</button>
+    </div>
+
     <script src="<?= asset('js/script.js') ?>"></script>
 </body>
 </html>

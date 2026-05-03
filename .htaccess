@@ -1,26 +1,71 @@
 Options -Indexes
 
-# Block access to sensitive files
-<FilesMatch "(^\.env|database\.sql|test\.php|test_db\.php|composer\.(json|lock)|\.gitignore)$">
+# ===== ЗАЩИТА ФАЙЛОВ =====
+<FilesMatch "(^\.env|database\.sql|composer\.(json|lock)|\.gitignore|mail_log\.txt|\.git)$">
     Order Allow,Deny
     Deny from all
 </FilesMatch>
 
-# Default charset
-AddDefaultCharset UTF-8
-
-# Gzip compression
-<IfModule mod_deflate.c>
-    AddOutputFilterByType DEFLATE text/html text/css application/javascript text/plain
+# Защита папки vendor
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteRule ^vendor/ - [F,L]
+    RewriteRule ^includes/ - [F,L]
 </IfModule>
 
-# Browser caching for static assets
+# ===== ЗАГОЛОВКИ БЕЗОПАСНОСТИ =====
+<IfModule mod_headers.c>
+    # Запрет встраивания в iframe (защита от clickjacking)
+    Header always set X-Frame-Options "SAMEORIGIN"
+    # Запрет угадывания типа файла
+    Header always set X-Content-Type-Options "nosniff"
+    # XSS-фильтр браузера
+    Header always set X-XSS-Protection "1; mode=block"
+    # Политика реферера
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    # Запрет опасных функций браузера
+    Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+    # Убираем информацию о сервере
+    Header unset X-Powered-By
+    Header unset Server
+    # HSTS — только HTTPS (включить после настройки SSL)
+    # Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+</IfModule>
+
+# ===== БЛОКИРОВКА ПЛОХИХ БОТОВ И СКАНЕРОВ =====
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    # Блокировка пустого User-Agent
+    RewriteCond %{HTTP_USER_AGENT} ^-?$
+    RewriteRule ^ - [F,L]
+    # Блокировка известных сканеров уязвимостей
+    RewriteCond %{HTTP_USER_AGENT} (nikto|sqlmap|nmap|masscan|zgrab|nuclei|dirbuster|gobuster|wfuzz|hydra|havij) [NC]
+    RewriteRule ^ - [F,L]
+    # Блокировка попыток обхода директорий
+    RewriteCond %{QUERY_STRING} (\.\./|\.\.\\) [NC]
+    RewriteRule ^ - [F,L]
+    # Блокировка SQL-инъекций в URL
+    RewriteCond %{QUERY_STRING} (union.*select|select.*from|insert.*into|drop.*table|script.*alert) [NC]
+    RewriteRule ^ - [F,L]
+</IfModule>
+
+# ===== ОГРАНИЧЕНИЕ РАЗМЕРА ЗАПРОСОВ =====
+LimitRequestBody 33554432
+
+# ===== КОДИРОВКА И СЖАТИЕ =====
+AddDefaultCharset UTF-8
+
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/css application/javascript text/plain application/json
+</IfModule>
+
+# ===== КЭШИРОВАНИЕ СТАТИКИ =====
 <IfModule mod_expires.c>
     ExpiresActive On
-    ExpiresByType text/css             "access plus 1 month"
-    ExpiresByType application/javascript "access plus 1 month"
-    ExpiresByType image/jpeg           "access plus 1 year"
-    ExpiresByType image/png            "access plus 1 year"
-    ExpiresByType image/webp           "access plus 1 year"
-    ExpiresByType image/svg+xml        "access plus 1 month"
+    ExpiresByType text/css                 "access plus 1 month"
+    ExpiresByType application/javascript   "access plus 1 month"
+    ExpiresByType image/jpeg               "access plus 1 year"
+    ExpiresByType image/png                "access plus 1 year"
+    ExpiresByType image/webp               "access plus 1 year"
+    ExpiresByType image/svg+xml            "access plus 1 month"
 </IfModule>
