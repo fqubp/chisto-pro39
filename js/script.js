@@ -74,6 +74,35 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
+    // ===== FAQ ACCORDION =====
+    document.querySelectorAll('.faq__question').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const item = btn.closest('.faq__item');
+            const isOpen = item.classList.contains('open');
+            document.querySelectorAll('.faq__item.open').forEach(i => i.classList.remove('open'));
+            if (!isOpen) item.classList.add('open');
+        });
+    });
+
+    // ===== GALLERY FILTER =====
+    const filterBtns = document.querySelectorAll('.gallery__filter');
+    if (filterBtns.length) {
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const filter = btn.dataset.filter;
+                document.querySelectorAll('.gallery__item').forEach(item => {
+                    if (filter === 'all' || item.dataset.category === filter) {
+                        item.classList.remove('hidden');
+                    } else {
+                        item.classList.add('hidden');
+                    }
+                });
+            });
+        });
+    }
+
     // ===== CALCULATOR =====
     const calcTotalSpan = document.getElementById('calc-total');
     if (calcTotalSpan) {

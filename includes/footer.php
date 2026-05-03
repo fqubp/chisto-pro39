@@ -28,6 +28,15 @@
                 </ul>
             </div>
             <div class="footer__col">
+                <h4>Компания</h4>
+                <ul>
+                    <li><a href="<?= route('about.php') ?>">О нас</a></li>
+                    <li><a href="<?= route('gallery.php') ?>">Наши работы</a></li>
+                    <li><a href="<?= route('faq.php') ?>">Вопросы и ответы</a></li>
+                    <li><a href="<?= route('calculator.php') ?>">Калькулятор цены</a></li>
+                </ul>
+            </div>
+            <div class="footer__col">
                 <h4>Контакты</h4>
                 <p><i class="fas fa-phone"></i> <a href="tel:+79222501266">+7 (922) 250-12-66</a></p>
                 <p><i class="fas fa-envelope"></i> <a href="mailto:chisto-pro39@bk.ru">chisto-pro39@bk.ru</a></p>

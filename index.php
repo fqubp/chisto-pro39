@@ -96,6 +96,34 @@ if (!empty($_GET['error'])) {
     </div>
 </section>
 
+<section class="how-we-work">
+    <div class="container">
+        <h2>Как мы работаем</h2>
+        <div class="steps__grid">
+            <div class="step fade-in">
+                <div class="step__num">1</div>
+                <h3>Оставьте заявку</h3>
+                <p>Заполните форму на сайте, напишите в WhatsApp или позвоните — ответим за 15 минут.</p>
+            </div>
+            <div class="step fade-in">
+                <div class="step__num">2</div>
+                <h3>Согласуем детали</h3>
+                <p>Уточним объём работ, площадь, пожелания и назначим удобное для вас время.</p>
+            </div>
+            <div class="step fade-in">
+                <div class="step__num">3</div>
+                <h3>Выполним уборку</h3>
+                <p>Приедем со всем оборудованием и профессиональными средствами. Работаем аккуратно и в срок.</p>
+            </div>
+            <div class="step fade-in">
+                <div class="step__num">4</div>
+                <h3>Примете результат</h3>
+                <p>Проверите работу и оплатите после того, как убедитесь в качестве. Гарантия на все услуги.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
 <section class="reviews">
     <div class="container">
         <h2>Отзывы клиентов</h2>

@@ -64,8 +64,15 @@
                         </ul>
                     </li>
                     <li><a href="<?= route('prices.php') ?>">Цены</a></li>
-                    <!-- НОВЫЙ ПУНКТ МЕНЮ: Калькулятор -->
                     <li><a href="<?= route('calculator.php') ?>">Калькулятор</a></li>
+                    <li><a href="<?= route('gallery.php') ?>">Наши работы</a></li>
+                    <li class="menu-item-has-children">
+                        <a href="#">О нас</a>
+                        <ul class="submenu">
+                            <li><a href="<?= route('about.php') ?>">О компании</a></li>
+                            <li><a href="<?= route('faq.php') ?>">Вопросы и ответы</a></li>
+                        </ul>
+                    </li>
                     <li><a href="<?= route('contacts.php') ?>">Контакты</a></li>
                 </ul>
             </nav>
