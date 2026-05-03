@@ -5,7 +5,7 @@
         <h1>Уборка квартир</h1>
         <div class="service-page__content">
             <div class="service-page__image">
-                [Фото: уборка квартиры]
+                <i class="fas fa-broom"></i>
             </div>
             <div class="service-page__description">
                 <p>Профессиональная уборка квартир в Калининграде. Мы используем безопасные средства и современное оборудование. Работаем по ГОСТу.</p>

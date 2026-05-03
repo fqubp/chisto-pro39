@@ -1,25 +1,17 @@
-// Бургер-меню для мобильных устройств
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
+
+    // ===== BURGER MENU =====
     const burger = document.getElementById('burger');
     const nav = document.querySelector('.header__nav');
-    
+
     if (burger && nav) {
-        burger.addEventListener('click', function() {
-            // Переключаем классы для открытия/закрытия меню
-            nav.classList.toggle('header__nav--active');
+        burger.addEventListener('click', function () {
+            const isOpen = nav.classList.toggle('header__nav--active');
             burger.classList.toggle('active');
-            
-            // Блокируем прокрутку body при открытом меню (опционально)
-            if (nav.classList.contains('header__nav--active')) {
-                document.body.style.overflow = 'hidden';
-            } else {
-                document.body.style.overflow = '';
-            }
+            document.body.style.overflow = isOpen ? 'hidden' : '';
         });
-        
-        // Закрытие меню при клике на ссылку внутри навигации
-        const navLinks = nav.querySelectorAll('a');
-        navLinks.forEach(link => {
+
+        nav.querySelectorAll('a').forEach(link => {
             link.addEventListener('click', () => {
                 nav.classList.remove('header__nav--active');
                 burger.classList.remove('active');
@@ -28,7 +20,61 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Калькулятор стоимости (если он есть на странице)
+    // ===== MOBILE SUBMENU (click-based, touch-friendly) =====
+    document.querySelectorAll('.menu-item-has-children').forEach(item => {
+        const link = item.querySelector(':scope > a');
+        if (!link) return;
+
+        link.addEventListener('click', function (e) {
+            if (window.innerWidth <= 992) {
+                const submenu = item.querySelector('.submenu');
+                if (submenu) {
+                    e.preventDefault();
+                    item.classList.toggle('open');
+                    // close other open items
+                    document.querySelectorAll('.menu-item-has-children.open').forEach(other => {
+                        if (other !== item) other.classList.remove('open');
+                    });
+                }
+            }
+        });
+    });
+
+    // ===== HEADER SCROLL SHADOW =====
+    const header = document.querySelector('.header');
+    if (header) {
+        const onScroll = () => header.classList.toggle('scrolled', window.scrollY > 20);
+        window.addEventListener('scroll', onScroll, { passive: true });
+        onScroll();
+    }
+
+    // ===== SCROLL FADE-IN ANIMATIONS =====
+    const fadeEls = document.querySelectorAll('.fade-in');
+    if (fadeEls.length) {
+        if ('IntersectionObserver' in window) {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+            fadeEls.forEach(el => observer.observe(el));
+        } else {
+            fadeEls.forEach(el => el.classList.add('visible'));
+        }
+    }
+
+    // ===== STAGGER DELAY FOR GRIDS =====
+    document.querySelectorAll('.services-grid, .advantages-grid, .stats__grid').forEach(grid => {
+        grid.querySelectorAll('.service-card, .advantage, .stat').forEach((el, i) => {
+            el.style.transitionDelay = (i * 0.1) + 's';
+        });
+    });
+
+    // ===== CALCULATOR =====
     const calcTotalSpan = document.getElementById('calc-total');
     if (calcTotalSpan) {
         const calcInputs = document.querySelectorAll('.calc-input');
@@ -41,13 +87,12 @@ document.addEventListener('DOMContentLoaded', function() {
             const rooms = parseFloat(document.getElementById('calc-rooms').value) || 0;
 
             let total = typeRate * area + rooms * 500;
-
-            document.querySelectorAll('.calc-extra:checked').forEach(function(cb) {
+            document.querySelectorAll('.calc-extra:checked').forEach(cb => {
                 total += parseFloat(cb.dataset.price) || 0;
             });
 
             total = Math.round(total);
-            calcTotalSpan.textContent = total;
+            calcTotalSpan.textContent = total.toLocaleString('ru-RU');
             if (orderPriceInput) orderPriceInput.value = total;
         }
 
@@ -55,4 +100,5 @@ document.addEventListener('DOMContentLoaded', function() {
         calcExtras.forEach(extra => extra.addEventListener('change', calculateTotal));
         calculateTotal();
     }
+
 });

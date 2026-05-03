@@ -4,31 +4,31 @@
     <div class="container">
         <h1>Услуги для частных лиц</h1>
         <p>Мы предлагаем профессиональный клининг для квартир, домов и дач. Все работы выполняются с учётом ваших пожеланий.</p>
-        
+
         <div class="services-grid">
-            <div class="service-card">
-                <div class="service-card__image">[Фото: уборка квартиры]</div>
+            <div class="service-card fade-in">
+                <div class="service-card__image"><i class="fas fa-broom"></i></div>
                 <h3>Уборка квартир</h3>
-                <p>от 90 руб/м²</p>
-                <a href="private/apartment.php" class="btn">Подробнее</a>
+                <p class="price">от 90 руб/м²</p>
+                <a href="apartment.php" class="btn">Подробнее</a>
             </div>
-            <div class="service-card">
-                <div class="service-card__image">[Фото: уборка дома]</div>
+            <div class="service-card fade-in">
+                <div class="service-card__image"><i class="fas fa-home"></i></div>
                 <h3>Уборка домов и коттеджей</h3>
-                <p>от 80 руб/м²</p>
-                <a href="private/house.php" class="btn">Подробнее</a>
+                <p class="price">от 120 руб/м²</p>
+                <a href="house.php" class="btn">Подробнее</a>
             </div>
-            <div class="service-card">
-                <div class="service-card__image">[Фото: химчистка]</div>
+            <div class="service-card fade-in">
+                <div class="service-card__image"><i class="fas fa-couch"></i></div>
                 <h3>Химчистка мебели</h3>
-                <p>от 4500 руб</p>
-                <a href="private/cleaning.php" class="btn">Подробнее</a>
+                <p class="price">от 4500 руб</p>
+                <a href="cleaning.php" class="btn">Подробнее</a>
             </div>
-            <div class="service-card">
-                <div class="service-card__image">[Фото: мойка окон]</div>
+            <div class="service-card fade-in">
+                <div class="service-card__image"><i class="fas fa-window-maximize"></i></div>
                 <h3>Мойка окон</h3>
-                <p>от 500 руб/створка</p>
-                <a href="private/windows.php" class="btn">Подробнее</a>
+                <p class="price">от 500 руб/створка</p>
+                <a href="windows.php" class="btn">Подробнее</a>
             </div>
         </div>
     </div>

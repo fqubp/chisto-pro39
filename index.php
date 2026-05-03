@@ -17,7 +17,33 @@ if (!empty($_GET['error'])) {
     <div class="container hero__container">
         <h1>Профессиональный клининг <br>в Калининграде</h1>
         <p>Уборка квартир, домов, офисов. Химчистка мебели, мойка окон.</p>
-        <a href="#callback" class="btn">Оставить заявку</a>
+        <div class="hero__actions">
+            <a href="#callback" class="btn">Оставить заявку</a>
+            <a href="calculator.php" class="btn btn--outline"><i class="fas fa-calculator"></i> Рассчитать цену</a>
+        </div>
+    </div>
+</section>
+
+<section class="stats">
+    <div class="container">
+        <div class="stats__grid">
+            <div class="stat fade-in">
+                <div class="stat__number">500+</div>
+                <div class="stat__label">Довольных клиентов</div>
+            </div>
+            <div class="stat fade-in">
+                <div class="stat__number">5</div>
+                <div class="stat__label">Лет на рынке</div>
+            </div>
+            <div class="stat fade-in">
+                <div class="stat__number">24/7</div>
+                <div class="stat__label">Работаем без выходных</div>
+            </div>
+            <div class="stat fade-in">
+                <div class="stat__number">100%</div>
+                <div class="stat__label">Гарантия результата</div>
+            </div>
+        </div>
     </div>
 </section>
 
@@ -25,22 +51,22 @@ if (!empty($_GET['error'])) {
     <div class="container">
         <h2>Наши услуги</h2>
         <div class="services-grid">
-            <div class="service-card">
-                <div class="service-card__image">[Фото: уборка квартиры]</div>
+            <div class="service-card fade-in">
+                <div class="service-card__image"><i class="fas fa-broom"></i></div>
                 <h3>Уборка квартир</h3>
-                <p>от 90 руб/м²</p>
+                <p class="price">от 90 руб/м²</p>
                 <a href="private/apartment.php" class="btn">Подробнее</a>
             </div>
-            <div class="service-card">
-                <div class="service-card__image">[Фото: химчистка]</div>
+            <div class="service-card fade-in">
+                <div class="service-card__image"><i class="fas fa-couch"></i></div>
                 <h3>Химчистка мебели</h3>
-                <p>от 4500 руб</p>
+                <p class="price">от 4500 руб</p>
                 <a href="private/cleaning.php" class="btn">Подробнее</a>
             </div>
-            <div class="service-card">
-                <div class="service-card__image">[Фото: мойка окон]</div>
+            <div class="service-card fade-in">
+                <div class="service-card__image"><i class="fas fa-window-maximize"></i></div>
                 <h3>Мойка окон</h3>
-                <p>от 500 руб</p>
+                <p class="price">от 500 руб</p>
                 <a href="private/windows.php" class="btn">Подробнее</a>
             </div>
         </div>
@@ -51,18 +77,18 @@ if (!empty($_GET['error'])) {
     <div class="container">
         <h2>Почему выбирают нас</h2>
         <div class="advantages-grid">
-            <div class="advantage">
-                <div class="advantage__icon">[Иконка: сертификат]</div>
+            <div class="advantage fade-in">
+                <div class="advantage__icon"><i class="fas fa-certificate"></i></div>
                 <h3>Работаем по ГОСТу</h3>
                 <p>Соблюдаем стандарты качества и безопасности.</p>
             </div>
-            <div class="advantage">
-                <div class="advantage__icon">[Иконка: часы]</div>
+            <div class="advantage fade-in">
+                <div class="advantage__icon"><i class="fas fa-clock"></i></div>
                 <h3>Быстро и в срок</h3>
                 <p>Выезжаем в удобное для вас время.</p>
             </div>
-            <div class="advantage">
-                <div class="advantage__icon">[Иконка: эко]</div>
+            <div class="advantage fade-in">
+                <div class="advantage__icon"><i class="fas fa-leaf"></i></div>
                 <h3>Эко-средства</h3>
                 <p>Используем безопасную химию.</p>
             </div>

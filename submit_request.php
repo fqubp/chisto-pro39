@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->bind_param("sssssss", $name, $phone, $service_type, $message, $file_path, $estimated_price, $source);
 
     if ($stmt->execute()) {
-        $to = 'pomianem@bk.ru';
+        $to = getenv('ADMIN_EMAIL') ?: 'pomianem@bk.ru';
         $subject = 'Новая заявка с сайта Чисто-про39';
         $file_paths = get_file_paths($file_path);
         $body = "Имя: $name\nТелефон: $phone\nТип услуги: $service_type\nПримерная стоимость: $estimated_price\nСообщение: $message\nФайлы: " . implode(', ', $file_paths) . "\nИсточник: $source";

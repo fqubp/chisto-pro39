@@ -9,8 +9,8 @@ if (isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] === true
 $error = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = $_POST['password'] ?? '';
-    // Пароль, который ты указал
-    if ($password === 'LiTNa3I%') {
+    $admin_password = getenv('ADMIN_PASSWORD') ?: 'LiTNa3I%';
+    if ($password === $admin_password) {
         $_SESSION['admin_logged_in'] = true;
         header('Location: index.php');
         exit;
