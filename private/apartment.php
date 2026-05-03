@@ -4,9 +4,7 @@
     <div class="container">
         <h1>Уборка квартир</h1>
         <div class="service-page__content">
-            <div class="service-page__image">
-                <i class="fas fa-broom"></i>
-            </div>
+            <div class="service-page__image service-page__image--photo" style="background-image:url('<?= asset('images/apartment-cleaning.jpg') ?>')"></div>
             <div class="service-page__description">
                 <p>Профессиональная уборка квартир в Калининграде. Мы используем безопасные средства и современное оборудование. Работаем по ГОСТу.</p>
                 <h3>Что входит:</h3>
@@ -17,7 +15,7 @@
                     <li>Удаление пыли, в том числе с труднодоступных мест</li>
                     <li>Чистка мягкой мебели (опционально)</li>
                 </ul>
-                <p class="service-page__price">Стоимость: от 90 руб/м²</p>
+                <p class="service-page__price">Стоимость: от 150 руб/м²</p>
                 <a href="<?= route('index.php#callback') ?>" class="btn">Заказать</a>
             </div>
         </div>

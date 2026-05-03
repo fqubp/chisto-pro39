@@ -4,9 +4,7 @@
     <div class="container">
         <h1>Уборка офисов</h1>
         <div class="service-page__content">
-            <div class="service-page__image">
-                <i class="fas fa-building"></i>
-            </div>
+            <div class="service-page__image service-page__image--photo" style="background-image:url('<?= asset('images/office-cleaning.jpg') ?>')"></div>
             <div class="service-page__description">
                 <p>Комплексная уборка офисных помещений в Калининграде. Обеспечиваем чистоту и порядок в вашем офисе: ежедневная, генеральная уборка, уборка после ремонта. Работаем с юридическими лицами по договору.</p>
                 <h3>Что входит:</h3>
@@ -17,7 +15,7 @@
                     <li>Санитарная обработка санузлов</li>
                     <li>Мойка окон и витрин (по запросу)</li>
                 </ul>
-                <p class="service-page__price">Стоимость: от 40 руб/м² (ежедневная) / от 95 руб/м² (после ремонта)</p>
+                <p class="service-page__price">Стоимость: от 60 руб/м² (ежедневная) / от 150 руб/м² (после ремонта)</p>
                 <a href="<?= route('index.php#callback') ?>" class="btn">Заказать</a>
             </div>
         </div>

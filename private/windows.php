@@ -4,9 +4,7 @@
     <div class="container">
         <h1>Мойка окон</h1>
         <div class="service-page__content">
-            <div class="service-page__image">
-                <i class="fas fa-window-maximize"></i>
-            </div>
+            <div class="service-page__image service-page__image--photo" style="background-image:url('<?= asset('images/window-cleaning.jpg') ?>')"></div>
             <div class="service-page__description">
                 <p>Профессиональная мойка окон, витрин и балконов в Калининграде. Моем окна без разводов с использованием безопасных средств и профессионального оборудования. Работаем на высоте с соблюдением техники безопасности.</p>
                 <h3>Что входит:</h3>
@@ -17,7 +15,7 @@
                     <li>Мойка москитных сеток</li>
                     <li>Протирка откосов</li>
                 </ul>
-                <p class="service-page__price">Стоимость: от 500 руб за створку</p>
+                <p class="service-page__price">Стоимость: от 600 руб за створку</p>
                 <a href="<?= route('index.php#callback') ?>" class="btn">Заказать</a>
             </div>
         </div>

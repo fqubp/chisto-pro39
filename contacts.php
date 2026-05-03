@@ -6,10 +6,10 @@
         <div class="contacts__grid">
             <div class="contacts__info">
                 <h2>Свяжитесь с нами</h2>
-                <p><i class="fas fa-phone"></i> <a href="tel:+74011234567">+7 (4012) 123-456</a></p>
-                <p><i class="fas fa-envelope"></i> <a href="mailto:info@chisto-pro39.ru">info@chisto-pro39.ru</a></p>
-                <p><i class="fab fa-whatsapp"></i> <a href="#" target="_blank">WhatsApp</a></p>
-                <p><i class="fab fa-telegram"></i> <a href="#" target="_blank">Telegram</a></p>
+                <p><i class="fas fa-phone"></i> <a href="tel:+79222501266">+7 (922) 250-12-66</a></p>
+                <p><i class="fas fa-envelope"></i> <a href="mailto:chisto-pro39@bk.ru">chisto-pro39@bk.ru</a></p>
+                <p><i class="fab fa-whatsapp"></i> <a href="https://wa.me/79222501266" target="_blank">WhatsApp</a></p>
+                <p><i class="fab fa-telegram"></i> <a href="https://t.me/chisto_pro39_bot" target="_blank">Telegram</a></p>
                 <p><i class="fas fa-clock"></i> Режим работы: ежедневно 8:00–22:00</p>
                 <p><i class="fas fa-map-marker-alt"></i> Калининград (работаем по всему городу и области)</p>
             </div>

@@ -86,7 +86,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const area = parseFloat(document.getElementById('calc-area').value) || 0;
             const rooms = parseFloat(document.getElementById('calc-rooms').value) || 0;
 
-            let total = typeRate * area + rooms * 500;
+            let total = typeRate * area + rooms * 750;
             document.querySelectorAll('.calc-extra:checked').forEach(cb => {
                 total += parseFloat(cb.dataset.price) || 0;
             });

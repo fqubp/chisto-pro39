@@ -176,6 +176,33 @@ function send_smtp_email($to, $subject, $message) {
     }
 }
 
+// Отправка уведомления в Telegram
+function send_telegram_notification($message) {
+    $token = getenv('TELEGRAM_BOT_TOKEN');
+    $chat_id = getenv('TELEGRAM_CHAT_ID');
+
+    if (!$token || !$chat_id) {
+        return false;
+    }
+
+    $url = "https://api.telegram.org/bot{$token}/sendMessage";
+    $data = [
+        'chat_id' => $chat_id,
+        'text' => $message,
+        'parse_mode' => 'HTML',
+    ];
+
+    $ch = curl_init($url);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_TIMEOUT, 5);
+    $result = curl_exec($ch);
+    curl_close($ch);
+
+    return $result !== false;
+}
+
 // Получение всех заявок (для админки)
 function get_requests($conn) {
     $sql = "SELECT * FROM requests ORDER BY created_at DESC";

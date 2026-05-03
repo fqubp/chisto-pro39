@@ -7,27 +7,27 @@
 
         <div class="services-grid">
             <div class="service-card fade-in">
-                <div class="service-card__image"><i class="fas fa-broom"></i></div>
+                <div class="service-card__image service-card__image--photo" style="background-image:url('<?= asset('images/apartment-cleaning.jpg') ?>')"></div>
                 <h3>Уборка квартир</h3>
-                <p class="price">от 90 руб/м²</p>
+                <p class="price">от 150 руб/м²</p>
                 <a href="apartment.php" class="btn">Подробнее</a>
             </div>
             <div class="service-card fade-in">
-                <div class="service-card__image"><i class="fas fa-home"></i></div>
+                <div class="service-card__image service-card__image--photo" style="background-image:url('<?= asset('images/apartment-cleaning.jpg') ?>')"></div>
                 <h3>Уборка домов и коттеджей</h3>
-                <p class="price">от 120 руб/м²</p>
+                <p class="price">от 180 руб/м²</p>
                 <a href="house.php" class="btn">Подробнее</a>
             </div>
             <div class="service-card fade-in">
-                <div class="service-card__image"><i class="fas fa-couch"></i></div>
+                <div class="service-card__image service-card__image--photo" style="background-image:url('<?= asset('images/furniture-cleaning.jpg') ?>')"></div>
                 <h3>Химчистка мебели</h3>
-                <p class="price">от 4500 руб</p>
+                <p class="price">от 4 500 руб</p>
                 <a href="cleaning.php" class="btn">Подробнее</a>
             </div>
             <div class="service-card fade-in">
-                <div class="service-card__image"><i class="fas fa-window-maximize"></i></div>
+                <div class="service-card__image service-card__image--photo" style="background-image:url('<?= asset('images/window-cleaning.jpg') ?>')"></div>
                 <h3>Мойка окон</h3>
-                <p class="price">от 500 руб/створка</p>
+                <p class="price">от 600 руб/створка</p>
                 <a href="windows.php" class="btn">Подробнее</a>
             </div>
         </div>

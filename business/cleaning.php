@@ -4,9 +4,7 @@
     <div class="container">
         <h1>Химчистка в офисе</h1>
         <div class="service-page__content">
-            <div class="service-page__image">
-                <i class="fas fa-spray-can"></i>
-            </div>
+            <div class="service-page__image service-page__image--photo" style="background-image:url('<?= asset('images/carpet-cleaning.jpg') ?>')"></div>
             <div class="service-page__description">
                 <p>Профессиональная химчистка ковровых покрытий, мягкой мебели и кресел в офисах. Освежаем интерьер, удаляем пятна и запахи. Используем средства, безопасные для сотрудников.</p>
                 <h3>Что входит:</h3>
@@ -17,7 +15,7 @@
                     <li>Дезинфекция поверхностей</li>
                     <li>Быстрая сушка (кресла готовы к использованию через 2-3 часа)</li>
                 </ul>
-                <p class="service-page__price">Стоимость: от 70 руб/м² (ковёр) / от 2500 руб (кресло)</p>
+                <p class="service-page__price">Стоимость: от 110 руб/м² (ковёр) / от 4 000 руб (кресло)</p>
                 <a href="<?= route('index.php#callback') ?>" class="btn">Заказать</a>
             </div>
         </div>

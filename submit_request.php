@@ -37,11 +37,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->bind_param("sssssss", $name, $phone, $service_type, $message, $file_path, $estimated_price, $source);
 
     if ($stmt->execute()) {
-        $to = getenv('ADMIN_EMAIL') ?: 'pomianem@bk.ru';
+        $to = getenv('ADMIN_EMAIL') ?: 'chisto-pro39@bk.ru';
         $subject = 'Новая заявка с сайта Чисто-про39';
         $file_paths = get_file_paths($file_path);
         $body = "Имя: $name\nТелефон: $phone\nТип услуги: $service_type\nПримерная стоимость: $estimated_price\nСообщение: $message\nФайлы: " . implode(', ', $file_paths) . "\nИсточник: $source";
         send_notification($to, $subject, $body);
+
+        $tg_text = "🧹 <b>Новая заявка!</b>\n"
+            . "👤 Имя: " . ($name ?: '—') . "\n"
+            . "📞 Телефон: $phone\n"
+            . ($service_type ? "🔧 Услуга: $service_type\n" : "")
+            . ($estimated_price ? "💰 Стоимость: ~$estimated_price руб\n" : "")
+            . ($message ? "💬 Комментарий: $message\n" : "");
+        send_telegram_notification($tg_text);
 
         header('Location: thank_you.php');
         exit;

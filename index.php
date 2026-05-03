@@ -52,21 +52,21 @@ if (!empty($_GET['error'])) {
         <h2>Наши услуги</h2>
         <div class="services-grid">
             <div class="service-card fade-in">
-                <div class="service-card__image"><i class="fas fa-broom"></i></div>
+                <div class="service-card__image service-card__image--photo" style="background-image:url('<?= asset('images/apartment-cleaning.jpg') ?>')"></div>
                 <h3>Уборка квартир</h3>
-                <p class="price">от 90 руб/м²</p>
+                <p class="price">от 150 руб/м²</p>
                 <a href="private/apartment.php" class="btn">Подробнее</a>
             </div>
             <div class="service-card fade-in">
-                <div class="service-card__image"><i class="fas fa-couch"></i></div>
+                <div class="service-card__image service-card__image--photo" style="background-image:url('<?= asset('images/furniture-cleaning.jpg') ?>')"></div>
                 <h3>Химчистка мебели</h3>
-                <p class="price">от 4500 руб</p>
+                <p class="price">от 4 500 руб</p>
                 <a href="private/cleaning.php" class="btn">Подробнее</a>
             </div>
             <div class="service-card fade-in">
-                <div class="service-card__image"><i class="fas fa-window-maximize"></i></div>
+                <div class="service-card__image service-card__image--photo" style="background-image:url('<?= asset('images/window-cleaning.jpg') ?>')"></div>
                 <h3>Мойка окон</h3>
-                <p class="price">от 500 руб</p>
+                <p class="price">от 600 руб/створка</p>
                 <a href="private/windows.php" class="btn">Подробнее</a>
             </div>
         </div>
@@ -91,6 +91,29 @@ if (!empty($_GET['error'])) {
                 <div class="advantage__icon"><i class="fas fa-leaf"></i></div>
                 <h3>Эко-средства</h3>
                 <p>Используем безопасную химию.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="reviews">
+    <div class="container">
+        <h2>Отзывы клиентов</h2>
+        <div class="reviews__grid">
+            <div class="review-card fade-in">
+                <div class="review-card__stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                <p class="review-card__text">«Заказывала генеральную уборку двухкомнатной квартиры. Ребята приехали вовремя, работали аккуратно и профессионально. Результат превзошёл ожидания — даже плинтуса блестят!»</p>
+                <div class="review-card__author">Анна К., Калининград</div>
+            </div>
+            <div class="review-card fade-in">
+                <div class="review-card__stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                <p class="review-card__text">«Вызвали для уборки после ремонта в офисе. Строительная пыль, краска на плитке — всё убрали за один день. Работаем теперь только с Чисто-про39.»</p>
+                <div class="review-card__author">Дмитрий Л., ООО "СтройКом"</div>
+            </div>
+            <div class="review-card fade-in">
+                <div class="review-card__stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div>
+                <p class="review-card__text">«Химчистка дивана — результат отличный, вывели пятно, которое я считала вечным. Цена честная, приехали на следующий день после звонка.»</p>
+                <div class="review-card__author">Марина П., Калининград</div>
             </div>
         </div>
     </div>

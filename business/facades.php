@@ -4,9 +4,7 @@
     <div class="container">
         <h1>Мойка фасадов</h1>
         <div class="service-page__content">
-            <div class="service-page__image">
-                <i class="fas fa-city"></i>
-            </div>
+            <div class="service-page__image service-page__image--photo" style="background-image:url('<?= asset('images/facade-cleaning.jpg') ?>')"></div>
             <div class="service-page__description">
                 <p>Профессиональная мойка и очистка фасадов зданий в Калининграде. Работаем с фасадами любых типов: кирпич, штукатурка, облицовочная плитка, металлокассеты, навесные панели. Соблюдаем технику безопасности при работе на высоте.</p>
                 <h3>Что входит:</h3>
@@ -18,7 +16,7 @@
                     <li>Обработка антисептиком (по запросу)</li>
                     <li>Промышленный альпинизм при необходимости</li>
                 </ul>
-                <p class="service-page__price">Стоимость: от 60 руб/м²</p>
+                <p class="service-page__price">Стоимость: от 90 руб/м²</p>
                 <a href="<?= route('index.php#callback') ?>" class="btn">Заказать</a>
             </div>
         </div>

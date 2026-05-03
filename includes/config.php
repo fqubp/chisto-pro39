@@ -64,7 +64,7 @@ function asset($path = '') {
 // SMTP настройки
 function getSmtpConfig() {
     return [
-        'host' => getenv('SMTP_HOST') ?: 'smtp.yandex.ru',
+        'host' => getenv('SMTP_HOST') ?: 'smtp.mail.ru',
         'port' => getenv('SMTP_PORT') ?: 465,
         'user' => getenv('SMTP_USER') ?: '',
         'pass' => getenv('SMTP_PASS') ?: '',

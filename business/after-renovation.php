@@ -4,9 +4,7 @@
     <div class="container">
         <h1>Уборка после ремонта</h1>
         <div class="service-page__content">
-            <div class="service-page__image">
-                <i class="fas fa-hard-hat"></i>
-            </div>
+            <div class="service-page__image service-page__image--photo" style="background-image:url('<?= asset('images/renovation-cleaning.jpg') ?>')"></div>
             <div class="service-page__description">
                 <p>Специализированная уборка помещений после строительных и ремонтных работ. Удаляем строительную пыль, остатки клея, краски, цемента. Приводим объект в идеальное состояние.</p>
                 <h3>Что входит:</h3>
@@ -17,7 +15,7 @@
                     <li>Удаление остатков клея, краски, герметика</li>
                     <li>Влажная уборка полов</li>
                 </ul>
-                <p class="service-page__price">Стоимость: от 110 руб/м²</p>
+                <p class="service-page__price">Стоимость: от 170 руб/м²</p>
                 <a href="<?= route('index.php#callback') ?>" class="btn">Заказать</a>
             </div>
         </div>

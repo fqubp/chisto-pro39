@@ -4,9 +4,7 @@
     <div class="container">
         <h1>Химчистка мебели</h1>
         <div class="service-page__content">
-            <div class="service-page__image">
-                <i class="fas fa-couch"></i>
-            </div>
+            <div class="service-page__image service-page__image--photo" style="background-image:url('<?= asset('images/furniture-cleaning.jpg') ?>')"></div>
             <div class="service-page__description">
                 <p>Профессиональная химчистка мягкой мебели, ковров и ковровых покрытий в Калининграде. Используем безопасные средства, которые не вызывают аллергии и эффективно удаляют любые пятна.</p>
                 <h3>Что входит:</h3>
@@ -17,7 +15,7 @@
                     <li>Дезинфекция и дезодорация</li>
                     <li>Сушка и восстановление внешнего вида</li>
                 </ul>
-                <p class="service-page__price">Стоимость: от 4500 руб (диван) / от 140 руб/м² (ковёр)</p>
+                <p class="service-page__price">Стоимость: от 4 500 руб (диван) / от 140 руб/м² (ковёр)</p>
                 <a href="<?= route('index.php#callback') ?>" class="btn">Заказать</a>
             </div>
         </div>

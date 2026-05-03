@@ -10,9 +10,9 @@
                 <div class="form-group">
                     <label for="calc-type">Тип уборки</label>
                     <select id="calc-type" class="calc-input">
-                        <option value="30">Поддерживающая (30 руб/м²)</option>
-                        <option value="50" selected>Генеральная (50 руб/м²)</option>
-                        <option value="80">После ремонта (80 руб/м²)</option>
+                        <option value="150">Поддерживающая (150 руб/м²)</option>
+                        <option value="250" selected>Генеральная (250 руб/м²)</option>
+                        <option value="400">После ремонта (400 руб/м²)</option>
                     </select>
                 </div>
 
@@ -29,10 +29,10 @@
                 <div class="form-group">
                     <label>Дополнительные услуги</label>
                     <div class="checkbox-group">
-                        <label><input type="checkbox" id="calc-windows" class="calc-extra" data-price="1000"> Мытьё окон (+1000 руб)</label>
-                        <label><input type="checkbox" id="calc-fridge" class="calc-extra" data-price="500"> Мытьё холодильника (+500 руб)</label>
-                        <label><input type="checkbox" id="calc-oven" class="calc-extra" data-price="700"> Чистка духовки (+700 руб)</label>
-                        <label><input type="checkbox" id="calc-chimney" class="calc-extra" data-price="1500"> Химчистка одного предмета мебели (+1500 руб)</label>
+                        <label><input type="checkbox" id="calc-windows" class="calc-extra" data-price="1500"> Мытьё окон (+1 500 руб)</label>
+                        <label><input type="checkbox" id="calc-fridge" class="calc-extra" data-price="750"> Мытьё холодильника (+750 руб)</label>
+                        <label><input type="checkbox" id="calc-oven" class="calc-extra" data-price="1000"> Чистка духовки (+1 000 руб)</label>
+                        <label><input type="checkbox" id="calc-chimney" class="calc-extra" data-price="2500"> Химчистка одного предмета мебели (+2 500 руб)</label>
                     </div>
                 </div>
 
