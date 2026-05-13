@@ -213,30 +213,75 @@ function send_smtp_email($to, $subject, $message) {
 }
 
 // Отправка уведомления в Telegram
-function send_telegram_notification($message) {
+function send_telegram_notification($message, $chat_id = null) {
     $token = getenv('TELEGRAM_BOT_TOKEN');
-    $chat_id = getenv('TELEGRAM_CHAT_ID');
+    if (!$chat_id) $chat_id = getenv('TELEGRAM_CHAT_ID');
 
     if (!$token || !$chat_id) {
+        error_log('Telegram: token or chat_id missing');
         return false;
     }
 
     $url = "https://api.telegram.org/bot{$token}/sendMessage";
-    $data = [
-        'chat_id' => $chat_id,
-        'text' => $message,
+    $data = json_encode([
+        'chat_id'    => $chat_id,
+        'text'       => $message,
         'parse_mode' => 'HTML',
-    ];
+    ]);
 
     $ch = curl_init($url);
     curl_setopt($ch, CURLOPT_POST, true);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_TIMEOUT, 5);
+    curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
     $result = curl_exec($ch);
+    $err    = curl_error($ch);
     curl_close($ch);
 
-    return $result !== false;
+    if ($err) {
+        error_log("Telegram curl error: $err");
+        return false;
+    }
+
+    $response = json_decode($result, true);
+    if (!($response['ok'] ?? false)) {
+        error_log("Telegram API error: $result");
+        return false;
+    }
+
+    return true;
+}
+
+// Уведомление рабочему о назначении на заказ
+function notify_worker($conn, $worker_id, $request) {
+    $stmt = $conn->prepare("SELECT telegram_chat_id, name FROM workers WHERE id = ?");
+    $stmt->bind_param("i", $worker_id);
+    $stmt->execute();
+    $worker = $stmt->get_result()->fetch_assoc();
+    $stmt->close();
+
+    if (!$worker || !$worker['telegram_chat_id']) return false;
+
+    $msg = "🧹 <b>Вас назначили на объект!</b>\n\n"
+         . "📋 Заявка №{$request['id']}\n"
+         . "👤 Клиент: " . ($request['name'] ?: '—') . "\n"
+         . "📞 Телефон: {$request['phone']}\n"
+         . ($request['address']      ? "📍 Адрес: {$request['address']}\n" : "")
+         . ($request['service_type'] ? "🔧 Услуга: {$request['service_type']}\n" : "")
+         . ($request['area_sqm']     ? "📐 Площадь: {$request['area_sqm']} м²\n" : "")
+         . ($request['rooms']        ? "🚪 Комнат: {$request['rooms']}\n" : "")
+         . ($request['scheduled_at'] ? "📅 Дата: " . date('d.m.Y H:i', strtotime($request['scheduled_at'])) . "\n" : "")
+         . ($request['message']      ? "💬 Комментарий: {$request['message']}\n" : "");
+
+    return send_telegram_notification($msg, $worker['telegram_chat_id']);
+}
+
+// Генерация токена для отслеживания заявки клиентом
+function generate_tracking_token() {
+    return bin2hex(random_bytes(16));
 }
 
 // Получение всех заявок (для админки)

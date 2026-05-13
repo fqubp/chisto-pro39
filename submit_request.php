@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Honeypot — боты заполняют скрытое поле, люди нет
     if (!empty($_POST['website'])) {
-        header('Location: thank_you.php');
+        header('Location: thank_you.php?token=bot');
         exit;
     }
 
@@ -42,8 +42,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $service = isset($_POST['service_type'])    ? clean_input($_POST['service_type'])    : '';
     $message = isset($_POST['message'])         ? clean_input($_POST['message'])         : '';
     $price   = isset($_POST['estimated_price']) ? clean_input($_POST['estimated_price']) : '';
+    $address = isset($_POST['address'])         ? clean_input($_POST['address'])         : '';
+    $area    = isset($_POST['area_sqm'])        ? (float)$_POST['area_sqm']             : null;
+    $rooms   = isset($_POST['rooms'])           ? (int)$_POST['rooms']                  : null;
     $source  = 'site';
     $ip_hash = hash('sha256', $_SERVER['REMOTE_ADDR'] ?? '0.0.0.0');
+    $token   = generate_tracking_token();
 
     if (empty($phone)) {
         header('Location: index.php?error=' . urlencode('Телефон обязателен.'));
@@ -63,13 +67,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    $stmt = $conn->prepare("INSERT INTO requests (name, phone, service_type, message, file_path, estimated_price, source, source_ip) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt = $conn->prepare("INSERT INTO requests (name, phone, service_type, message, file_path, estimated_price, source, source_ip, address, area_sqm, rooms, tracking_token) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
     if (!$stmt) {
         error_log('DB prepare error: ' . $conn->error);
         header('Location: index.php?error=' . urlencode('Ошибка сервера. Попробуйте позже.'));
         exit;
     }
-    $stmt->bind_param("ssssssss", $name, $phone, $service, $message, $file_path, $price, $source, $ip_hash);
+    $stmt->bind_param("sssssssssdis", $name, $phone, $service, $message, $file_path, $price, $source, $ip_hash, $address, $area, $rooms, $token);
 
     if ($stmt->execute()) {
         $to      = getenv('ADMIN_EMAIL') ?: 'chisto-pro39@bk.ru';
@@ -86,7 +90,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             . ($message  ? "💬 Комментарий: $message\n" : "");
         send_telegram_notification($tg);
 
-        header('Location: thank_you.php');
+        header('Location: thank_you.php?token=' . urlencode($token));
         exit;
     } else {
         error_log('DB execute error: ' . $stmt->error);
