@@ -103,6 +103,8 @@
     <div class="container">
         <h2>Закажите уборку прямо сейчас</h2>
         <form action="submit_request.php" method="post" enctype="multipart/form-data" class="callback-form">
+            <?= csrf_field() ?>
+            <input type="text" name="website" style="display:none" tabindex="-1" autocomplete="off">
             <div class="form-group">
                 <label for="name">Ваше имя</label>
                 <input type="text" id="name" name="name" placeholder="Имя">

@@ -144,3 +144,39 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
 });
+
+    // ===== PHONE MASK =====
+    document.querySelectorAll('input[type="tel"]').forEach(input => {
+        input.addEventListener('input', function () {
+            let val = this.value.replace(/\D/g, '');
+            if (val.startsWith('8')) val = '7' + val.slice(1);
+            if (!val.startsWith('7')) val = '7' + val;
+            val = val.slice(0, 11);
+            let formatted = '+7';
+            if (val.length > 1) formatted += ' (' + val.slice(1, 4);
+            if (val.length > 4) formatted += ') ' + val.slice(4, 7);
+            if (val.length > 7) formatted += '-' + val.slice(7, 9);
+            if (val.length > 9) formatted += '-' + val.slice(9, 11);
+            this.value = formatted;
+        });
+        input.addEventListener('keydown', function (e) {
+            if (e.key === 'Backspace' && this.value === '+7 (') {
+                this.value = '';
+            }
+        });
+    });
+
+    // ===== DYNAMIC PAGE TITLE =====
+    const pageTitles = {
+        'index.php': 'Чисто-про39 — Профессиональный клининг в Калининграде',
+        'services.php': 'Услуги клининга — Чисто-про39',
+        'prices.php': 'Цены на уборку — Чисто-про39',
+        'calculator.php': 'Калькулятор стоимости уборки — Чисто-про39',
+        'gallery.php': 'Наши работы — Чисто-про39',
+        'reviews.php': 'Отзывы клиентов — Чисто-про39',
+        'contacts.php': 'Контакты — Чисто-про39',
+        'about.php': 'О компании — Чисто-про39',
+        'faq.php': 'Частые вопросы — Чисто-про39',
+    };
+    const page = window.location.pathname.split('/').pop() || 'index.php';
+    if (pageTitles[page]) document.title = pageTitles[page];

@@ -16,6 +16,7 @@
                     <li><a href="<?= route('services.php') ?>">Услуги</a></li>
                     <li><a href="<?= route('prices.php') ?>">Цены</a></li>
                     <li><a href="<?= route('contacts.php') ?>">Контакты</a></li>
+                    <li><a href="<?= route('reviews.php') ?>">Отзывы</a></li>
                 </ul>
             </div>
             <div class="footer__col">
@@ -32,6 +33,7 @@
                 <ul>
                     <li><a href="<?= route('about.php') ?>">О нас</a></li>
                     <li><a href="<?= route('gallery.php') ?>">Наши работы</a></li>
+                    <li><a href="<?= route('reviews.php') ?>">Отзывы</a></li>
                     <li><a href="<?= route('faq.php') ?>">Вопросы и ответы</a></li>
                     <li><a href="<?= route('calculator.php') ?>">Калькулятор цены</a></li>
                 </ul>
