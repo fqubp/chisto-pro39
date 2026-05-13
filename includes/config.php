@@ -2,6 +2,7 @@
 // Загрузка переменных окружения из .env файла
 function loadEnv($path) {
     if (!file_exists($path)) {
+        error_log("Warning: .env file not found at $path");
         return;
     }
     $lines = file($path, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);

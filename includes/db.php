@@ -8,7 +8,13 @@ $conn = new mysqli($dbConfig['host'], $dbConfig['user'], $dbConfig['pass'], $dbC
 
 // Проверяем соединение
 if ($conn->connect_error) {
-    die("Ошибка подключения к базе данных: " . $conn->connect_error);
+    error_log("DB connection error: " . $conn->connect_error);
+    if (php_sapi_name() !== 'cli') {
+        http_response_code(500);
+        echo '<h1>Ошибка сервера</h1>';
+        echo '<p>Не удалось подключиться к базе данных. Проверьте файл <code>.env</code> и параметры подключения.</p>';
+    }
+    exit;
 }
 
 // Устанавливаем кодировку
