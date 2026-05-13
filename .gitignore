@@ -1,8 +1,0 @@
-.DS_Store
-mail_log.txt
-uploads/*
-!uploads/.htaccess
-!uploads/.gitkeep
-.env
-*.log
-.idea/
