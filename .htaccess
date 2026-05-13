@@ -1,6 +1,11 @@
 ErrorDocument 404 /404.php
 ErrorDocument 403 /404.php
 
+# Сессии
+php_value session.cookie_path /
+php_value session.cookie_samesite Lax
+php_flag session.cookie_httponly on
+
 # Сжатие
 <IfModule mod_deflate.c>
     AddOutputFilterByType DEFLATE text/html text/css text/javascript application/javascript

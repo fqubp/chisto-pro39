@@ -1,12 +1,29 @@
 <?php
-if (session_status() === PHP_SESSION_NONE) session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_set_cookie_params([
+        'lifetime' => 0,
+        'path'     => '/',
+        'secure'   => isset($_SERVER['HTTPS']),
+        'httponly' => true,
+        'samesite' => 'Lax',
+    ]);
+    session_start();
+}
 require_once 'includes/db.php';
 require_once 'includes/functions.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    // CSRF-проверка
-    verify_csrf();
+    // CSRF-проверка с дополнительной отладкой
+    $post_token    = $_POST['csrf_token'] ?? '';
+    $session_token = $_SESSION['csrf_token'] ?? '';
+
+    if (empty($post_token) || empty($session_token) || !hash_equals($session_token, $post_token)) {
+        // Regenerate token and redirect back
+        unset($_SESSION['csrf_token']);
+        header('Location: index.php?error=' . urlencode('Ошибка сессии. Попробуйте ещё раз.'));
+        exit;
+    }
 
     // Honeypot — боты заполняют скрытое поле, люди нет
     if (!empty($_POST['website'])) {
