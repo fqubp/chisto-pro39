@@ -1,5 +1,4 @@
--- Запускать ТОЛЬКО если БД уже существует и таблицы созданы ранее
--- Добавляем таблицу рабочих
+-- Таблица рабочих
 CREATE TABLE IF NOT EXISTS workers (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
@@ -9,15 +8,14 @@ CREATE TABLE IF NOT EXISTS workers (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Добавляем новые поля в таблицу заявок
-ALTER TABLE requests
-    ADD COLUMN IF NOT EXISTS worker_id INT DEFAULT NULL,
-    ADD COLUMN IF NOT EXISTS area_sqm DECIMAL(7,1) DEFAULT NULL,
-    ADD COLUMN IF NOT EXISTS rooms INT DEFAULT NULL,
-    ADD COLUMN IF NOT EXISTS address VARCHAR(500) DEFAULT NULL,
-    ADD COLUMN IF NOT EXISTS scheduled_at DATETIME DEFAULT NULL,
-    ADD COLUMN IF NOT EXISTS tracking_token VARCHAR(64) DEFAULT NULL;
+-- Новые поля в requests (без IF NOT EXISTS)
+ALTER TABLE requests ADD COLUMN worker_id INT DEFAULT NULL;
+ALTER TABLE requests ADD COLUMN area_sqm DECIMAL(7,1) DEFAULT NULL;
+ALTER TABLE requests ADD COLUMN rooms INT DEFAULT NULL;
+ALTER TABLE requests ADD COLUMN address VARCHAR(500) DEFAULT NULL;
+ALTER TABLE requests ADD COLUMN scheduled_at DATETIME DEFAULT NULL;
+ALTER TABLE requests ADD COLUMN tracking_token VARCHAR(64) DEFAULT NULL;
 
 -- Индексы
-CREATE INDEX IF NOT EXISTS idx_requests_phone ON requests(phone);
-CREATE INDEX IF NOT EXISTS idx_requests_token ON requests(tracking_token);
+CREATE INDEX idx_requests_phone ON requests(phone);
+CREATE INDEX idx_requests_token ON requests(tracking_token);
