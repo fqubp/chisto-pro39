@@ -66,6 +66,7 @@
                     <li><a href="<?= route('prices.php') ?>">Цены</a></li>
                     <li><a href="<?= route('calculator.php') ?>">Калькулятор</a></li>
                     <li><a href="<?= route('gallery.php') ?>">Наши работы</a></li>
+                    <li><a href="<?= route('reviews.php') ?>">Отзывы</a></li>
                     <li class="menu-item-has-children">
                         <a href="#">О нас</a>
                         <ul class="submenu">

@@ -234,7 +234,11 @@ function build_url($overrides = []) {
     <div class="admin-wrap">
         <div class="admin-header">
             <h1>Заявки с сайта</h1>
-            <a href="logout.php" class="btn">Выйти</a>
+            <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+                <a href="reviews.php" class="btn btn--outline" style="font-size:14px">💬 Отзывы</a>
+                <a href="gallery.php" class="btn btn--outline" style="font-size:14px">🖼️ Галерея</a>
+                <a href="logout.php" class="btn">Выйти</a>
+            </div>
         </div>
 
         <form method="get" class="admin-filter">
