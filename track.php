@@ -61,13 +61,15 @@ include 'includes/header.php';
         <!-- Форма поиска -->
         <div class="track-search">
             <form method="post" action="track.php" class="track-form">
-                <div class="track-form__row">
+                <div class="track-form__inner">
+                    <div class="track-form__icon"><i class="fas fa-search"></i></div>
                     <input type="tel" name="phone" id="phone-track"
                            placeholder="+7 (___) ___-__-__"
                            value="<?= htmlspecialchars($_POST['phone'] ?? '') ?>"
                            required>
                     <button type="submit" class="btn">Найти заявку</button>
                 </div>
+                <p class="track-form__hint">Введите номер телефона, указанный при оформлении заявки</p>
             </form>
         </div>
 

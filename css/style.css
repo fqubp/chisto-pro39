@@ -1315,15 +1315,59 @@ img { max-width: 100%; height: auto; }
 
 .track-page { padding: 60px 0; }
 
-.track-search { max-width: 540px; margin: 0 auto 48px; }
-.track-form__row { display: flex; gap: 12px; }
-.track-form__row input {
-    flex: 1; padding: 12px 18px; border: 2px solid #e5e7eb;
-    border-radius: var(--radius); font-size: 16px; font-family: inherit;
-    transition: border-color .2s;
-}
-.track-form__row input:focus { outline: none; border-color: var(--teal); }
+.track-search { max-width: 620px; margin: 0 auto 52px; }
 
+.track-form__inner {
+    display: flex;
+    align-items: center;
+    background: white;
+    border: 2px solid #e5e7eb;
+    border-radius: 50px;
+    padding: 8px 8px 8px 20px;
+    box-shadow: 0 4px 24px rgba(0,0,0,.08);
+    transition: border-color .2s, box-shadow .2s;
+    gap: 12px;
+}
+
+.track-form__inner:focus-within {
+    border-color: var(--teal);
+    box-shadow: 0 4px 24px rgba(0,180,160,.15);
+}
+
+.track-form__icon {
+    color: var(--teal);
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+.track-form__inner input[type="tel"] {
+    flex: 1;
+    border: none;
+    outline: none;
+    font-size: 17px;
+    font-family: inherit;
+    color: var(--navy);
+    background: transparent;
+    padding: 8px 0;
+    min-width: 0;
+}
+
+.track-form__inner input::placeholder { color: #b0bcc8; }
+
+.track-form__inner .btn {
+    border-radius: 40px;
+    padding: 12px 28px;
+    font-size: 15px;
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+
+.track-form__hint {
+    text-align: center;
+    font-size: 13px;
+    color: #9ca3af;
+    margin-top: 12px;
+}
 .track-empty { text-align: center; padding: 60px 20px; color: var(--gray); }
 .track-empty__icon { font-size: 56px; margin-bottom: 16px; }
 .track-empty p { font-size: 16px; margin-bottom: 8px; }

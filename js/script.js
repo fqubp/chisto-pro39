@@ -30,13 +30,21 @@ document.addEventListener('DOMContentLoaded', function () {
                 const submenu = item.querySelector('.submenu');
                 if (submenu) {
                     e.preventDefault();
+                    e.stopPropagation();
                     item.classList.toggle('open');
-                    // close other open items
                     document.querySelectorAll('.menu-item-has-children.open').forEach(other => {
                         if (other !== item) other.classList.remove('open');
                     });
                 }
             }
+        });
+
+        // Клики по пунктам сабменю — НЕ закрывают меню
+        const submenuLinks = item.querySelectorAll('.submenu a');
+        submenuLinks.forEach(subLink => {
+            subLink.addEventListener('click', function(e) {
+                e.stopPropagation();
+            });
         });
     });
 
