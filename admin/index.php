@@ -237,6 +237,8 @@ function build_url($overrides = []) {
             <td class="actions">
                 <!-- Назначить рабочего -->
                 <button onclick="openAssign(<?= $req['id'] ?>, '<?= addslashes($req['worker_ids_assigned']??'') ?>', '<?= addslashes($req['scheduled_at']??'') ?>', '<?= addslashes($req['address']??'') ?>', '<?= $req['area_sqm']??'' ?>', '<?= $req['rooms']??'' ?>')" title="Назначить рабочих">👷</button>
+                <!-- Редактировать заявку -->
+                <a href="edit.php?id=<?= $req['id'] ?>" title="Редактировать заявку и стоимость">✏️</a>
                 <!-- Статусы -->
                 <a href="<?= build_url(['action'=>'change_status','id'=>$req['id'],'status'=>'new','page'=>null]) ?>" title="→ Новая">📄</a>
                 <a href="<?= build_url(['action'=>'change_status','id'=>$req['id'],'status'=>'in_progress','page'=>null]) ?>" title="→ В работе">⚙️</a>
