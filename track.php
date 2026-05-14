@@ -17,7 +17,7 @@ $status_labels = [
 // Поиск по токену (прямая ссылка из SMS/письма)
 if (!empty($_GET['token']) && $_GET['token'] !== 'bot') {
     $token = clean_input($_GET['token']);
-    $stmt = $conn->prepare("SELECT r.*, w.name as worker_name FROM requests r LEFT JOIN workers w ON r.worker_id = w.id WHERE r.tracking_token = ?");
+    $stmt = $conn->prepare("SELECT r.*, GROUP_CONCAT(w.name ORDER BY w.name SEPARATOR ', ') as worker_name FROM requests r LEFT JOIN request_workers rw ON r.id = rw.request_id LEFT JOIN workers w ON rw.worker_id = w.id WHERE r.tracking_token = ? GROUP BY r.id");
     $stmt->bind_param("s", $token);
     $stmt->execute();
     $request = $stmt->get_result()->fetch_assoc();
@@ -33,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['phone'])) {
     $phone_digits = preg_replace('/\D/', '', $phone_raw);
     $searched = true;
 
-    $stmt = $conn->prepare("SELECT r.*, w.name as worker_name FROM requests r LEFT JOIN workers w ON r.worker_id = w.id WHERE REGEXP_REPLACE(r.phone, '[^0-9]', '') LIKE ? ORDER BY r.created_at DESC LIMIT 10");
+    $stmt = $conn->prepare("SELECT r.*, GROUP_CONCAT(w.name ORDER BY w.name SEPARATOR ', ') as worker_name FROM requests r LEFT JOIN request_workers rw ON r.id = rw.request_id LEFT JOIN workers w ON rw.worker_id = w.id WHERE REGEXP_REPLACE(r.phone, '[^0-9]', '') LIKE ? GROUP BY r.id ORDER BY r.created_at DESC LIMIT 10");
     $like = '%' . substr($phone_digits, -10); // последние 10 цифр
     $stmt->bind_param("s", $like);
     $stmt->execute();

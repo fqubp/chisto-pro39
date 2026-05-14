@@ -7,27 +7,49 @@ if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== tru
 require_once '../includes/db.php';
 require_once '../includes/functions.php';
 
-// Назначение рабочего
+// Назначение рабочих (множественный выбор)
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'assign_worker') {
-    $id        = intval($_POST['id']);
-    $worker_id = intval($_POST['worker_id']) ?: null;
-    $scheduled = trim($_POST['scheduled_at'] ?? '');
-    $address   = trim($_POST['address'] ?? '');
-    $area      = !empty($_POST['area_sqm']) ? (float)$_POST['area_sqm'] : null;
-    $rooms     = !empty($_POST['rooms']) ? (int)$_POST['rooms'] : null;
-    $scheduled_val = $scheduled ?: null;
+    $id         = intval($_POST['id']);
+    $worker_ids = array_map('intval', (array)($_POST['worker_ids'] ?? []));
+    $scheduled  = trim($_POST['scheduled_at'] ?? '') ?: null;
+    $address    = trim($_POST['address'] ?? '');
+    $area       = !empty($_POST['area_sqm']) ? (float)$_POST['area_sqm'] : null;
+    $rooms      = !empty($_POST['rooms'])    ? (int)$_POST['rooms']      : null;
 
-    $stmt = $conn->prepare("UPDATE requests SET worker_id=?, scheduled_at=?, address=?, area_sqm=?, rooms=? WHERE id=?");
-    $stmt->bind_param("issdii", $worker_id, $scheduled_val, $address, $area, $rooms, $id);
+    // Обновляем основные поля заявки
+    $stmt = $conn->prepare("UPDATE requests SET scheduled_at=?, address=?, area_sqm=?, rooms=? WHERE id=?");
+    $stmt->bind_param("ssdii", $scheduled, $address, $area, $rooms, $id);
     $stmt->execute(); $stmt->close();
 
-    // Уведомить рабочего в Telegram
-    if ($worker_id) {
-        $req_stmt = $conn->prepare("SELECT * FROM requests WHERE id=?");
-        $req_stmt->bind_param("i", $id); $req_stmt->execute();
-        $req = $req_stmt->get_result()->fetch_assoc(); $req_stmt->close();
-        notify_worker($conn, $worker_id, $req);
+    // Получаем уже назначенных рабочих (чтобы уведомить только новых)
+    $existing_res = $conn->prepare("SELECT worker_id FROM request_workers WHERE request_id=?");
+    $existing_res->bind_param("i", $id); $existing_res->execute();
+    $existing_ids = array_column($existing_res->get_result()->fetch_all(MYSQLI_ASSOC), 'worker_id');
+    $existing_res->close();
+
+    // Удаляем всех старых и вставляем новых
+    $del = $conn->prepare("DELETE FROM request_workers WHERE request_id=?");
+    $del->bind_param("i", $id); $del->execute(); $del->close();
+
+    // Получаем данные заявки для уведомления
+    $req_stmt = $conn->prepare("SELECT * FROM requests WHERE id=?");
+    $req_stmt->bind_param("i", $id); $req_stmt->execute();
+    $req = $req_stmt->get_result()->fetch_assoc(); $req_stmt->close();
+    $req['scheduled_at'] = $scheduled;
+    $req['address']      = $address;
+    $req['area_sqm']     = $area;
+    $req['rooms']        = $rooms;
+
+    foreach ($worker_ids as $wid) {
+        if (!$wid) continue;
+        $ins = $conn->prepare("INSERT INTO request_workers (request_id, worker_id, notified_at) VALUES (?,?,NOW())");
+        $ins->bind_param("ii", $id, $wid); $ins->execute(); $ins->close();
+        // Уведомляем только новых рабочих
+        if (!in_array($wid, $existing_ids)) {
+            notify_worker($conn, $wid, $req);
+        }
     }
+
     header('Location: index.php'); exit;
 }
 
@@ -82,7 +104,7 @@ $total_pages = (int)ceil($total / $per_page);
 
 $page_params = array_merge($params, [$per_page, $offset]);
 $page_types  = $types . 'ii';
-$stmt = $conn->prepare("SELECT r.*, w.name as worker_name FROM requests r LEFT JOIN workers w ON r.worker_id = w.id $where_sql ORDER BY r.created_at DESC LIMIT ? OFFSET ?");
+$stmt = $conn->prepare("SELECT r.*, GROUP_CONCAT(w.name ORDER BY w.name SEPARATOR ', ') as worker_names, GROUP_CONCAT(w.id ORDER BY w.name SEPARATOR ',') as worker_ids_assigned FROM requests r LEFT JOIN request_workers rw ON r.id = rw.request_id LEFT JOIN workers w ON rw.worker_id = w.id $where_sql GROUP BY r.id ORDER BY r.created_at DESC LIMIT ? OFFSET ?");
 if ($page_params) $stmt->bind_param($page_types, ...$page_params);
 $stmt->execute();
 $requests = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
@@ -205,7 +227,7 @@ function build_url($overrides = []) {
             <td><?= htmlspecialchars($req['service_type'] ?: '—') ?></td>
             <td style="max-width:140px;font-size:12px"><?= htmlspecialchars($req['address'] ?: '—') ?></td>
             <td style="white-space:nowrap;font-size:12px"><?= $req['scheduled_at'] ? date('d.m.Y H:i', strtotime($req['scheduled_at'])) : '—' ?></td>
-            <td><?= htmlspecialchars($req['worker_name'] ?: '—') ?></td>
+            <td><?= htmlspecialchars($req['worker_names'] ?: '—') ?></td>
             <td style="white-space:nowrap"><?= htmlspecialchars($req['estimated_price'] ?: '—') ?></td>
             <td>
                 <span class="status-badge status-<?= $req['status'] ?>">
@@ -214,7 +236,7 @@ function build_url($overrides = []) {
             </td>
             <td class="actions">
                 <!-- Назначить рабочего -->
-                <button onclick="openAssign(<?= $req['id'] ?>, '<?= addslashes($req['worker_id']??'') ?>', '<?= addslashes($req['scheduled_at']??'') ?>', '<?= addslashes($req['address']??'') ?>', '<?= $req['area_sqm']??'' ?>', '<?= $req['rooms']??'' ?>')" title="Назначить рабочего">👷</button>
+                <button onclick="openAssign(<?= $req['id'] ?>, '<?= addslashes($req['worker_ids_assigned']??'') ?>', '<?= addslashes($req['scheduled_at']??'') ?>', '<?= addslashes($req['address']??'') ?>', '<?= $req['area_sqm']??'' ?>', '<?= $req['rooms']??'' ?>')" title="Назначить рабочих">👷</button>
                 <!-- Статусы -->
                 <a href="<?= build_url(['action'=>'change_status','id'=>$req['id'],'status'=>'new','page'=>null]) ?>" title="→ Новая">📄</a>
                 <a href="<?= build_url(['action'=>'change_status','id'=>$req['id'],'status'=>'in_progress','page'=>null]) ?>" title="→ В работе">⚙️</a>
@@ -249,13 +271,16 @@ function build_url($overrides = []) {
             <input type="hidden" name="action" value="assign_worker">
             <input type="hidden" name="id" id="assign_id">
             <div class="form-group">
-                <label>Рабочий</label>
-                <select name="worker_id" id="assign_worker">
-                    <option value="">— не назначен —</option>
+                <label>Рабочие <span style="font-weight:400;color:#9ca3af">(можно выбрать несколько)</span></label>
+                <div class="workers-checklist" id="assign_workers_list">
                     <?php foreach ($workers as $w): ?>
-                        <option value="<?= $w['id'] ?>"><?= htmlspecialchars($w['name']) ?></option>
+                    <label class="worker-check-item">
+                        <input type="checkbox" name="worker_ids[]" value="<?= $w['id'] ?>"
+                               class="worker-checkbox" data-id="<?= $w['id'] ?>">
+                        <span><?= htmlspecialchars($w['name']) ?></span>
+                    </label>
                     <?php endforeach; ?>
-                </select>
+                </div>
             </div>
             <div class="form-group">
                 <label>Дата и время уборки</label>
@@ -284,13 +309,19 @@ function build_url($overrides = []) {
 </div>
 
 <script>
-function openAssign(id, workerId, scheduledAt, address, area, rooms) {
+function openAssign(id, workerIds, scheduledAt, address, area, rooms) {
     document.getElementById('assign_id').value = id;
-    document.getElementById('assign_worker').value = workerId || '';
     document.getElementById('assign_date').value = scheduledAt ? scheduledAt.replace(' ', 'T').slice(0,16) : '';
     document.getElementById('assign_address').value = address || '';
     document.getElementById('assign_area').value = area || '';
     document.getElementById('assign_rooms').value = rooms || '';
+
+    // Отмечаем чекбоксы назначенных рабочих
+    const assigned = workerIds ? workerIds.split(',').map(s => s.trim()) : [];
+    document.querySelectorAll('.worker-checkbox').forEach(cb => {
+        cb.checked = assigned.includes(cb.dataset.id);
+    });
+
     document.getElementById('assignModal').classList.add('open');
     document.body.style.overflow = 'hidden';
 }
