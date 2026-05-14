@@ -79,12 +79,12 @@ require_once __DIR__ . '/functions.php';
                     <li><a href="<?= route('calculator.php') ?>">Калькулятор</a></li>
                     <li><a href="<?= route('gallery.php') ?>" style="white-space:nowrap">Наши работы</a></li>
                     <li><a href="<?= route('reviews.php') ?>">Отзывы</a></li>
-                    <li><a href="<?= route('track.php') ?>">Статус заявки</a></li>
                     <li class="menu-item-has-children">
                         <a href="#" style="white-space:nowrap">О нас</a>
                         <ul class="submenu">
                             <li><a href="<?= route('about.php') ?>">О компании</a></li>
                             <li><a href="<?= route('faq.php') ?>">Вопросы и ответы</a></li>
+                            <li><a href="<?= route('track.php') ?>">Статус заявки</a></li>
                         </ul>
                     </li>
                     <li><a href="<?= route('contacts.php') ?>">Контакты</a></li>
