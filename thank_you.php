@@ -24,7 +24,7 @@ $show_tracking = $token && $token !== 'bot';
             <p class="thank-you__sub">Если хотите ускорить — напишите нам напрямую:</p>
             <div class="thank-you__contacts">
                 <a href="tel:+79222501266" class="thank-you__btn thank-you__btn--phone"><i class="fas fa-phone"></i> +7 (922) 250-12-66</a>
-                <a href="https://wa.me/79222501266" target="_blank" class="thank-you__btn thank-you__btn--wa"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+                <a href="https://vk.com/chisto_pro39" target="_blank" class="thank-you__btn thank-you__btn--vk"><i class="fab fa-vk"></i> ВКонтакте</a>
                 <a href="https://t.me/chisto_pro39_bot" target="_blank" class="thank-you__btn thank-you__btn--tg"><i class="fab fa-telegram"></i> Telegram</a>
             </div>
             <a href="<?= route('index.php') ?>" class="btn btn--outline" style="margin-top:24px">← На главную</a>

@@ -5,7 +5,7 @@
                 <div class="footer__logo">Чисто-про39</div>
                 <p class="footer__tagline">Чисто по ГОСТу в Калининграде</p>
                 <div class="footer__social">
-                    <a href="https://wa.me/79222501266" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                    <a href="https://vk.com/chisto_pro39" target="_blank" aria-label="ВКонтакте"><i class="fab fa-vk"></i></a>
                     <a href="https://t.me/chisto_pro39_bot" target="_blank" aria-label="Telegram"><i class="fab fa-telegram"></i></a>
                 </div>
             </div>
@@ -55,8 +55,8 @@
 
     <!-- Плавающие кнопки мессенджеров -->
     <div class="float-contacts">
-        <a href="https://wa.me/79222501266" class="float-btn float-btn--wa" target="_blank" aria-label="Написать в WhatsApp">
-            <i class="fab fa-whatsapp"></i>
+        <a href="https://vk.com/chisto_pro39" class="float-btn float-btn--vk" target="_blank" aria-label="Написать ВКонтакте">
+            <i class="fab fa-vk"></i>
         </a>
         <a href="https://t.me/chisto_pro39_bot" class="float-btn float-btn--tg" target="_blank" aria-label="Написать в Telegram">
             <i class="fab fa-telegram"></i>

@@ -17,7 +17,7 @@
                     <i class="fas fa-chevron-down"></i>
                 </button>
                 <div class="faq__answer">
-                    <p>Оставьте заявку на сайте, напишите нам в WhatsApp или Telegram, или позвоните по номеру <a href="tel:+79222501266">+7 (922) 250-12-66</a>. Мы свяжемся с вами в течение 15 минут, уточним детали и согласуем удобное время.</p>
+                    <p>Оставьте заявку на сайте, напишите нам в ВКонтакте или Telegram, или позвоните по номеру <a href="tel:+79222501266">+7 (922) 250-12-66</a>. Мы свяжемся с вами в течение 15 минут, уточним детали и согласуем удобное время.</p>
                 </div>
             </div>
 
@@ -117,7 +117,7 @@
             <h3>Не нашли ответ на свой вопрос?</h3>
             <p>Напишите нам — ответим в течение 15 минут</p>
             <div class="faq__cta-btns">
-                <a href="https://wa.me/79222501266" class="btn" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+                <a href="https://vk.com/chisto_pro39" class="btn" target="_blank"><i class="fab fa-vk"></i> ВКонтакте</a>
                 <a href="https://t.me/chisto_pro39_bot" class="btn btn--outline" target="_blank"><i class="fab fa-telegram"></i> Telegram</a>
             </div>
         </div>

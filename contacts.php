@@ -34,7 +34,7 @@
                     <div class="contact-item__icon" style="background:#25D366"><i class="fab fa-whatsapp"></i></div>
                     <div>
                         <div class="contact-item__label">WhatsApp</div>
-                        <a href="https://wa.me/79222501266" target="_blank" class="contact-item__value">Написать в WhatsApp</a>
+                        <a href="https://vk.com/chisto_pro39" target="_blank" class="contact-item__value">Написать ВКонтакте</a>
                     </div>
                 </div>
 

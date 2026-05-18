@@ -93,7 +93,7 @@ require_once __DIR__ . '/functions.php';
             <div class="header__contacts">
                 <a href="tel:+79222501266" class="header__phone">+7 (922) 250-12-66</a>
                 <div class="header__social">
-                    <a href="https://wa.me/79222501266" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                    <a href="https://vk.com/chisto_pro39" target="_blank" aria-label="ВКонтакте"><i class="fab fa-vk"></i></a>
                     <a href="https://t.me/chisto_pro39_bot" target="_blank" aria-label="Telegram"><i class="fab fa-telegram"></i></a>
                 </div>
                 <a href="<?= route('index.php#callback') ?>" class="header__btn btn">Оставить заявку</a>

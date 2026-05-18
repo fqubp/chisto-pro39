@@ -81,19 +81,34 @@ include 'includes/header.php';
         <h2>Почему выбирают нас</h2>
         <div class="advantages-grid">
             <div class="advantage fade-in">
-                <div class="advantage__icon"><i class="fas fa-certificate"></i></div>
-                <h3>Работаем по ГОСТу</h3>
-                <p>Соблюдаем стандарты качества и безопасности.</p>
-            </div>
-            <div class="advantage fade-in">
-                <div class="advantage__icon"><i class="fas fa-clock"></i></div>
-                <h3>Быстро и в срок</h3>
-                <p>Выезжаем в удобное для вас время.</p>
+                <div class="advantage__icon"><i class="fas fa-shield-alt"></i></div>
+                <h3>Страхование ответственности</h3>
+                <p>Несём материальную ответственность за сохранность имущества. При повреждении — компенсируем ущерб без лишних споров.</p>
             </div>
             <div class="advantage fade-in">
                 <div class="advantage__icon"><i class="fas fa-leaf"></i></div>
-                <h3>Эко-средства</h3>
-                <p>Используем безопасную химию.</p>
+                <h3>Профессиональная химия</h3>
+                <p>Используем сертифицированные средства Grass, Henkel и Diversey. Безопасны для детей, животных и аллергиков. Без резкого запаха.</p>
+            </div>
+            <div class="advantage fade-in">
+                <div class="advantage__icon"><i class="fas fa-clock"></i></div>
+                <h3>Точно в срок</h3>
+                <p>Приезжаем в согласованное время ±15 минут. Если опаздываем — предупреждаем заранее. Работаем 7 дней в неделю с 8:00 до 22:00.</p>
+            </div>
+            <div class="advantage fade-in">
+                <div class="advantage__icon"><i class="fas fa-redo"></i></div>
+                <h3>Гарантия на работы</h3>
+                <p>Если после уборки остались недочёты — вернёмся и устраним бесплатно в течение 24 часов. Без условий и лишних вопросов.</p>
+            </div>
+            <div class="advantage fade-in">
+                <div class="advantage__icon"><i class="fas fa-users"></i></div>
+                <h3>Проверенные сотрудники</h3>
+                <p>Все клинеры прошли личное собеседование, инструктаж и стажировку. Работаем официально — договор, чек, закрывающие документы.</p>
+            </div>
+            <div class="advantage fade-in">
+                <div class="advantage__icon"><i class="fas fa-tools"></i></div>
+                <h3>Профессиональное оборудование</h3>
+                <p>Промышленные пылесосы Karcher, пароочистители и полотёры. Приезжаем полностью оснащёнными — вам не нужно ничего готовить.</p>
             </div>
         </div>
     </div>
@@ -106,7 +121,7 @@ include 'includes/header.php';
             <div class="step fade-in">
                 <div class="step__num">1</div>
                 <h3>Оставьте заявку</h3>
-                <p>Заполните форму на сайте, напишите в WhatsApp или позвоните — ответим за 15 минут.</p>
+                <p>Заполните форму на сайте, напишите в ВКонтакте или позвоните — ответим за 15 минут.</p>
             </div>
             <div class="step fade-in">
                 <div class="step__num">2</div>

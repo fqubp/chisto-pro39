@@ -124,7 +124,6 @@ img { max-width: 100%; height: auto; }
     top: 0;
     z-index: 1000;
     transition: box-shadow var(--transition);
-    overflow-x: clip;
 }
 .header.scrolled { box-shadow: 0 4px 32px rgba(11,59,92,0.14); }
 
@@ -978,7 +977,8 @@ img { max-width: 100%; height: auto; }
     text-decoration: none;
 }
 .float-btn:hover { transform: scale(1.12); box-shadow: 0 6px 24px rgba(0,0,0,0.32); }
-.float-btn--wa { background: #25D366; }
+.float-btn--vk { background: #0077FF; }
+.float-btn--vk:hover { background: #0066DD; }
 .float-btn--tg { background: #229ED9; }
 
 /* ===== ADMIN PANEL ===== */
@@ -1301,7 +1301,7 @@ img { max-width: 100%; height: auto; }
 }
 .thank-you__btn:hover { opacity:.85; }
 .thank-you__btn--phone { background:var(--navy); }
-.thank-you__btn--wa { background:#25D366; }
+.thank-you__btn--vk { background:#0077FF; }
 .thank-you__btn--tg { background:#229ED9; }
 
 /* ===== 404 PAGE ===== */

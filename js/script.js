@@ -12,7 +12,9 @@ document.addEventListener('DOMContentLoaded', function () {
         });
 
         nav.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
+            link.addEventListener('click', (e) => {
+                // Не закрываем меню при клике на пункты с подменю
+                if (link.closest('.menu-item-has-children') && link.parentElement.querySelector('.submenu')) return;
                 nav.classList.remove('header__nav--active');
                 burger.classList.remove('active');
                 document.body.style.overflow = '';
